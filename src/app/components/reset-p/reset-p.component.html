@@ -1,0 +1,31 @@
+<section>
+    <div class="background"></div>
+
+    <header class="header">
+        <img src="img/logo.svg" alt="logo" class="header__logo">
+        <app-login-btn></app-login-btn>
+    </header>
+
+    <div class="positioning-wrapper">
+        <div class="sign-up">
+            <h1 class="sign-up__h1">Forgot your <br> password?</h1>
+            <div class="input-wrapper">
+                <p class="sign-up__p">We will send you an email with instructions to <br> reset your password.</p>
+                <app-email-input placeholder="Email Address" type="email"
+                    (inputChange)="onEmailChange($event)"></app-email-input>
+                    <div class="err-msg-wrapper">
+                        <div class="sign-up__err-msg" [style.display]="err_msg_active ? 'flex' : 'none'">
+                            <img src="img/warning.svg" alt="warning">
+                            error message
+                        </div>
+                    </div>
+            </div>
+            <button class="sign-up__btn">Send Email</button>
+        </div>
+    </div>
+
+    <div class="imprint-and-pp">
+        <a routerLink="/privacy-policy" class="imprint-and-pp__pp">Datenschutz</a>
+        <a routerLink="/imprint" class="imprint-and-pp__imprint">Impressum</a>
+    </div>
+</section>

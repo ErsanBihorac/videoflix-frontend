@@ -1,0 +1,40 @@
+<section>
+    <div class="background"></div>
+
+    <header class="header">
+        <img src="img/logo.svg" alt="logo" class="header__logo">
+        <app-login-btn></app-login-btn>
+    </header>
+
+    <div class="positioning-wrapper">
+        <div class="sign-up">
+            <h1 class="sign-up__h1">Sign Up</h1>
+            <div class="input-wrapper">
+                <app-email-input placeholder="Email Address" type="email"
+                    (inputChange)="onEmailChange($event)"></app-email-input>
+                <app-password-input placeholder="Enter Password" [type]="password_type"
+                    (inputChange)="onPasswordChange($event)"></app-password-input>
+                <app-password-input placeholder="Confirm Password" [type]="confirm_password_type"
+                    (inputChange)="onConfirmPasswordChange($event)"></app-password-input>
+
+
+                <div class="visibility__password" (click)="switchPasswordVisibility()"><img [src]="password_visibility"
+                        alt="visibility"></div>
+                <div class="visibility__confirm-password" (click)="switchConfirmPasswordVisibility()"><img
+                        [src]="confirm_password_visibility" alt="visibility"></div>
+            </div>
+            <div class="err-msg-wrapper">
+                <div class="sign-up__err-msg" [style.display]="err_msg_active ? 'flex' : 'none'">
+                    <img src="img/warning.svg" alt="warning">
+                    error message
+                </div>
+            </div>
+            <button class="sign-up__btn">Get Started</button>
+        </div>
+    </div>
+
+    <div class="imprint-and-pp">
+        <a routerLink="/privacy-policy" class="imprint-and-pp__pp">Datenschutz</a>
+        <a routerLink="/imprint" class="imprint-and-pp__imprint">Impressum</a>
+    </div>
+</section>

@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+$purple: #2E3EDF;
+$error-red: #FF002E;
+
+@font-face {
+    font-family: 'dm_sans';
+    src: url('./../public/fonts/DMSans-VariableFont_opsz\,wght.ttf') format('truetype'), 
+    url('./../public/fonts/DMSans-Italic-VariableFont_opsz\,wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    font-family: 'dm_sans';
+    cursor: default;
+}

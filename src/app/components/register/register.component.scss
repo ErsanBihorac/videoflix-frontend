@@ -1,0 +1,126 @@
+@import './../../../styles.scss';
+
+section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.positioning-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.input-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.err-msg-wrapper {
+    width: 100%;
+    height: 4px;
+}
+
+.visibility {
+    &__password {
+        position: absolute;
+        margin-left: 480px;
+        margin-top: 84px;
+    }
+
+    &__confirm-password {
+        position: absolute;
+        margin-left: 480px;
+        margin-top: 158px;
+    }
+}
+
+.sign-up {
+    color: $purple;
+    border-radius: 48px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 520px;
+    gap: 32px;
+    padding: 43px 56px;
+
+    &__h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin-block-start: 0;
+        margin-block-end: 0;
+    }
+
+    &__btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 40px;
+        background-color: $purple;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+        font-family: 'dm_sans';
+        border: none;
+        padding: 12px 24px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    &__err-msg {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: 100%;
+        gap: 4px;
+        height: 4px;
+        margin-top: -20px;
+        color: $error-red;
+    }
+}
+
+.background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    background: linear-gradient(180deg, #000 -19.89%, rgba(0, 0, 0, 0.55) 40.46%, #000 100%), url(../../../../public/img/register_background_image.jpeg) lightgray -5.713px -94.592px / 117.212% 117.212% no-repeat;
+    background-position: right;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 96px;
+    height: 96px;
+
+    &__logo {
+        height: 32px;
+    }
+}
+
+.imprint-and-pp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+
+    &__pp {
+        color: white;
+        text-decoration: none;
+    }
+
+    &__imprint {
+        color: white;
+        text-decoration: none;
+    }
+}

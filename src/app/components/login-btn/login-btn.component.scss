@@ -1,0 +1,17 @@
+@import './../../../styles.scss';
+
+.login-btn {
+    height: 48px;
+    width: 96px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 40px;
+    background-color: $purple;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+}

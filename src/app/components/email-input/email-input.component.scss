@@ -1,0 +1,38 @@
+@import './../../../styles.scss';
+
+.email-input {
+    width: 100%;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid $purple;
+    background-color: rgba(0, 0, 0, 0);
+    color: $purple;
+    font-family: 'dm_sans';
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+    outline: none;
+
+    &::placeholder {
+        color: $purple;
+        text-align: left;
+    }
+
+    &:focus {
+        color: $purple;
+        border-color: $purple;
+        outline: none;
+        font-family: 'dm_sans';
+        font-size: 18px;
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    &:focus::placeholder {
+        color: transparent;
+    }
+}

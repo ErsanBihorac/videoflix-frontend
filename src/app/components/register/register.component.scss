@@ -26,12 +26,14 @@ section {
 
 .visibility {
     &__password {
+        cursor: pointer;
         position: absolute;
         margin-left: 480px;
         margin-top: 84px;
     }
 
     &__confirm-password {
+        cursor: pointer;
         position: absolute;
         margin-left: 480px;
         margin-top: 158px;

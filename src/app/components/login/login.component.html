@@ -1,1 +1,49 @@
-<p>login works!</p>
+<section>
+    <div class="background"></div>
+
+    <header class="header">
+        <img src="img/logo.svg" alt="logo" class="header__logo">
+        <app-login-btn></app-login-btn>
+    </header>
+
+    <div class="positioning-wrapper">
+        <div class="sign-up">
+            <h1 class="sign-up__h1">Log in</h1>
+            <div class="input-wrapper">
+                <app-email-input placeholder="Email Address" type="email"
+                    (inputChange)="onEmailChange($event)"></app-email-input>
+                <app-password-input placeholder="Enter Password" [type]="password_type"
+                    (inputChange)="onPasswordChange($event)"></app-password-input>
+
+                <div class="sign-up__checkbox">
+                    <input type="checkbox">Remember me
+                </div>
+
+                <div class="visibility__password" (click)="switchPasswordVisibility()"><img [src]="password_visibility"
+                        alt="visibility">
+                </div>
+
+                <div class="err-msg-wrapper">
+                    <div class="sign-up__err-msg" [style.display]="err_msg_active ? 'flex' : 'none'">
+                        <img src="img/warning.svg" alt="warning">
+                        error message
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-bottom-wrapper">
+                <button class="sign-up__btn">Log in</button>
+                <a class="sign-up__forgot-p" routerLink="/forgot-p">Forgot password?</a>
+                <div class="sign-up__text">
+                    <p class="sign-up__text--new-to-videoflix">New to Videoflix?</p>
+                    <a class="sign-up__text--sign-up" routerLink="/register">Sign Up now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="imprint-and-pp">
+        <a routerLink="/privacy-policy" class="imprint-and-pp__pp">Datenschutz</a>
+        <a routerLink="/imprint" class="imprint-and-pp__imprint">Impressum</a>
+    </div>
+</section>

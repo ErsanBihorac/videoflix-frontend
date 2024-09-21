@@ -26,12 +26,14 @@ section {
 
 .visibility {
     &__password {
+        cursor: pointer;
         position: absolute;
         margin-left: 480px;
         margin-top: 66px;
         }
 
     &__confirm-password {
+        cursor: pointer;
         position: absolute;
         margin-left: 480px;
         margin-top: 140px;
@@ -103,7 +105,6 @@ section {
     position: absolute;
     z-index: -1;
     background: linear-gradient(180deg, #000 -19.89%, rgba(0, 0, 0, 0.55) 40.46%, #000 100%), url(../../../../public/img/reset_background_img.jpeg) lightgray -5.713px -94.592px / 117.212% 117.212% no-repeat;
-    background-position: right;
 }
 
 .header {

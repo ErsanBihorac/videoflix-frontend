@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { LoginBtnComponent } from "../login-btn/login-btn.component";
 import { EmailInputComponent } from "../email-input/email-input.component";
 import { PasswordInputComponent } from "../password-input/password-input.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [LoginBtnComponent, EmailInputComponent, PasswordInputComponent],
+  imports: [LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

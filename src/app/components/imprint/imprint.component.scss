@@ -1,0 +1,57 @@
+@import './../../../styles.scss';
+
+section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    background-color: #141414;
+}
+
+.paragraph {
+    padding: 0px 96px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+
+    &__group {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        &--p {
+            font-size: 16px;
+            font-weight: 400;
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+
+        &--h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 96px;
+    height: 96px;
+
+    &__logo {
+        height: 32px;
+    }
+
+    &__arrow {
+        color: white;
+        height: 48px;
+        width: 48px;
+        cursor: pointer;
+    }
+}

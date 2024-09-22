@@ -1,0 +1,80 @@
+@import './../../../styles.scss';
+
+.collection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0px 96px 40px 96px;
+
+    &__navigation {
+        &--back {
+            background: linear-gradient(270deg, rgb(0, 0, 0, 0), $bg-dark);
+            display: flex;
+            align-items: center;
+            width: 40px;
+            height: 130px;
+            margin-top: -5px;
+            cursor: pointer;
+            z-index: 1;
+            position: absolute;
+            left: 96px;
+
+            img {
+                height: 40px;
+                width: 40px;
+            }
+        }
+
+        &--next {
+            background: linear-gradient(90deg, rgb(0, 0, 0, 0), $bg-dark);
+            display: flex;
+            align-items: center;
+            width: 40px;
+            height: 130px;
+            margin-top: -5px;
+            cursor: pointer;
+            z-index: 1;
+            position: absolute;
+            right: 96px;
+
+            img {
+                height: 40px;
+                width: 40px;
+            }
+        }
+    }
+
+    &__slide-view {
+        display: flex;
+        gap: 16px;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        padding: 10px 0px;
+        align-items: center;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &--img {
+            height: 120px;
+            width: 214px;
+            cursor: pointer;
+            transition: 200ms;
+            object-fit: cover;
+            flex: 0 0 214px;
+
+            &:hover {
+                scale: 1.05;
+            }
+        }
+    }
+
+    &__p {
+        font-size: 22px;
+        font-weight: 700;
+        color: white;
+        margin-block-start: 0;
+        margin-block-end: 0;
+    }
+}

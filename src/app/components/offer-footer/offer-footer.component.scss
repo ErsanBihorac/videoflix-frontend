@@ -1,0 +1,20 @@
+.footer {
+    height: 104px;
+    padding: 0px 96px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.90) 50%);
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 48px;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+
+    &__link {
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 500;
+    }
+}

@@ -6,8 +6,12 @@ import { RegisterComponent } from './components/register/register.component'
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component'
 import { ResetPComponent } from './components/reset-p/reset-p.component';
 import { ForgotPComponent } from './components/forgot-p/forgot-p.component';
+import { VideoOfferComponent } from './components/video-offer/video-offer.component';
+import { VideoplayerComponent } from './components/videoplayer/videoplayer.component';
 
 export const routes: Routes = [
+    { path: '', component: VideoOfferComponent },
+    { path: 'videoplayer', component: VideoplayerComponent },
     { path: 'homepage', component: HomepageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },

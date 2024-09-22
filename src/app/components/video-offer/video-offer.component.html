@@ -1,0 +1,8 @@
+<section>
+    <app-offer-header></app-offer-header>
+    <app-offer-info-preview></app-offer-info-preview>
+    @for (content of content; track content) {
+    <app-offer-video-collection [videos]="content.collection" [title]="content.title"></app-offer-video-collection>
+    }
+    <app-offer-footer></app-offer-footer>
+</section>

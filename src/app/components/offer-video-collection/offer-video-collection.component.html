@@ -1,0 +1,17 @@
+<div class="collection">
+    <p class="collection__p">{{ title }}</p>
+
+    <div class="collection__slide-view" #scrollContainer>
+        <div class="collection__navigation--back">
+            <img *ngIf="scroll_btn_active" (click)="scroll('back')" src="img/chevron_left.svg" alt="left">
+        </div>
+        <div class="collection__navigation--next">
+            <img *ngIf="scroll_btn_active" (click)="scroll('next')" src="img/chevron_right.svg" alt="right">
+        </div>
+        
+        @for (video of videos; track video) {
+            <img class="collection__slide-view--img" src="{{ video }}" alt="video">
+        }
+        
+    </div>
+</div>

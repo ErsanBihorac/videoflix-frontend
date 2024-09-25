@@ -1,18 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoginBtnComponent } from "../login-btn/login-btn.component";
 import { EmailInputComponent } from "../email-input/email-input.component";
 import { PasswordInputComponent } from "../password-input/password-input.component";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink],
+  imports: [FormsModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+  ls = inject(LoginService);
   err_msg_active: boolean = false;
+  err_msg: string = '';
+
   email: string = '';
   password: string = '';
   confirm_password: string = '';
@@ -22,6 +28,75 @@ export class RegisterComponent {
 
   password_visibility: string = 'img/visibility.svg';
   confirm_password_visibility: string = 'img/visibility.svg';
+  constructor( private router: Router) { }
+  
+  async register() {
+      await this.ls.registerWithEmailAndPassword(this.email, this.password)
+      .then(resp => {
+        console.log('succesfully registered', resp);
+        this.router.navigate(['/login']);
+      })
+      .catch(e => {
+        if (e.error.email[0]) {
+          this.activateAndSetErrMsg(e.error.email[0]);
+          console.log('error', e);
+        } else {
+          console.log('error', e);
+        }
+      });;
+  }
+
+  submit() {
+    if (this.emailValidation() && this.passwordValidation() && this.confirmPasswordValidation()) {
+      this.register();
+    }
+  }
+
+  confirmPasswordValidation() {
+    if (this.password !== this.confirm_password) {
+      this.activateAndSetErrMsg('Passwords do not match.');
+      return false
+    } else {
+      this.deactivateErrMsg();
+      return true
+    }
+  }
+
+  passwordValidation() {
+    if (this.password === '') {
+      this.activateAndSetErrMsg('Please enter a password.');
+      return false
+    } else if (this.password.length < 6) {
+      this.activateAndSetErrMsg('Your password must contain atleast 6 characters.');
+      return false
+    } else {
+      this.deactivateErrMsg();
+      return true
+    }
+  }
+
+  emailValidation() {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (this.email === '') {
+      this.activateAndSetErrMsg('Please enter your email address.');
+      return false
+    } else if (emailPattern.test(this.email) === false) {
+      this.activateAndSetErrMsg('Please enter a valid email address.');
+      return false
+    } else {
+      this.deactivateErrMsg();
+      return true
+    };
+  }
+
+  activateAndSetErrMsg(msg: string) {
+    this.err_msg_active = true;
+    this.err_msg = msg;
+  }
+
+  deactivateErrMsg() {
+    this.err_msg_active = false;
+  }
 
   onEmailChange(value: string) {
     this.email = value;

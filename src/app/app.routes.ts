@@ -8,6 +8,7 @@ import { ResetPComponent } from './components/reset-p/reset-p.component';
 import { ForgotPComponent } from './components/forgot-p/forgot-p.component';
 import { VideoOfferComponent } from './components/video-offer/video-offer.component';
 import { VideoplayerComponent } from './components/videoplayer/videoplayer.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
     { path: '', component: VideoOfferComponent },
@@ -19,4 +20,5 @@ export const routes: Routes = [
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
     { path: 'reset-password', component: ResetPComponent },
     { path: 'forgot-password', component: ForgotPComponent },
+    { path: '**', component: PageNotFoundComponent },
 ];

@@ -11,7 +11,7 @@
         <h2 class="mid__h2">watch whenever you want wherever you want</h2>
         <h3 class="mid__h3">Enter your email to create or restart your subscription</h3>
         <div class="mid__input-and-btn">
-            <input class="mid__email-input" type="text" placeholder="Email Address">
+            <input [(ngModel)]="ls.email" class="mid__email-input" type="email" placeholder="Email Address">
             <a routerLink="/register" class="mid__btn">Sign Up <img src="img/chevron_right.svg" alt=">"></a>
         </div>
     </div>

@@ -20,7 +20,7 @@
                         </div>
                     </div>
             </div>
-            <button class="sign-up__btn">Send Email</button>
+            <button [disabled]="!available" [ngClass]="available ? 'available' : 'unavailable'" class="sign-up__btn">Send Email</button>
         </div>
     </div>
 

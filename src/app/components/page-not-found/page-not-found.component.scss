@@ -7,47 +7,18 @@ section {
     justify-content: space-between;
 }
 
-.positioning-wrapper {
+.message-wrapper {
     display: flex;
+    align-items: start;
     justify-content: center;
+    padding: 0px 96px;
 }
 
-.input-wrapper {
-    width: 100%;
+.message {
+    color: white;
     display: flex;
     flex-direction: column;
-}
-
-.err-msg-wrapper {
-    width: 100%;
-    height: 4px;
-}
-
-.unavailable {
-    background-color: $purple-unavailable;
-}
-
-.available {
-    background-color: $purple;
-    cursor: pointer;
-}
-
-.sign-up {
-    color: $purple;
-    border-radius: 48px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 520px;
-    gap: 32px;
-    padding: 43px 56px;
-
-    &__p {
-        color: black;
-        text-align: center;
-        font-size: 18px;
-    }
+    gap: 24px;
 
     &__h1 {
         font-size: 48px;
@@ -56,29 +27,17 @@ section {
         margin-block-end: 0;
     }
 
-    &__btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 40px;
-        color: white;
-        font-size: 18px;
+    &__h2 {
+        font-size: 24px;
         font-weight: 500;
-        font-family: 'dm_sans';
-        border: none;
-        padding: 12px 24px;
-        text-decoration: none;
-    }
+        margin-block-start: 0;
+        margin-block-end: 0;
 
-    &__err-msg {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        width: 100%;
-        gap: 4px;
-        height: 4px;
-        margin-top: 16px;
-        color: $error-red;
+        &--link {
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+        }
     }
 }
 

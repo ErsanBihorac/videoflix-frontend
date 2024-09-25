@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
-import { LoginBtnComponent } from "../login-btn/login-btn.component";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-imprint',
   standalone: true,
-  imports: [LoginBtnComponent],
+  imports: [],
   templateUrl: './imprint.component.html',
   styleUrl: './imprint.component.scss'
 })
 export class ImprintComponent {
+  constructor(private location: Location) { }
 
+  returnToPreviousPage() {
+    this.location.back();
+  }
 }

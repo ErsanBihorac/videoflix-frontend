@@ -3,15 +3,17 @@ import { LoginBtnComponent } from "../login-btn/login-btn.component";
 import { EmailInputComponent } from "../email-input/email-input.component";
 import { PasswordInputComponent } from "../password-input/password-input.component";
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reset-p',
   standalone: true,
-  imports: [LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink],
+  imports: [CommonModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink],
   templateUrl: './reset-p.component.html',
   styleUrl: './reset-p.component.scss'
 })
 export class ResetPComponent {
+  available: boolean = false;
   err_msg_active: boolean = false;
   password: string = '';
   confirm_password: string = '';

@@ -30,7 +30,7 @@
                     error message
                 </div>
             </div>
-            <button class="sign-up__btn">Get Started</button>
+            <button [disabled]="!available" [ngClass]="available ? 'available' : 'unavailable'" class="sign-up__btn">Get Started</button>
         </div>
     </div>
 

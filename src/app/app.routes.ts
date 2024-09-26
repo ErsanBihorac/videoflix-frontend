@@ -18,7 +18,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'imprint', component: ImprintComponent },
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
-    { path: 'reset-password', component: ResetPComponent },
+    { path: 'reset-password/:uidb64/:token', component: ResetPComponent },
     { path: 'forgot-password', component: ForgotPComponent },
     { path: '**', component: PageNotFoundComponent },
 ];

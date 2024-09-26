@@ -7,31 +7,34 @@
     </header>
 
     <div class="positioning-wrapper">
-        <div class="sign-up">
-            <h1 class="sign-up__h1">Reset password</h1>
-            <div class="input-wrapper">
-                <div class="sign-up__p">
-                    Create a new password for your <div class="sign-up__p--highlight">Videoflix</div> account.
-                </div>
-                <app-password-input placeholder="Enter Password" [type]="password_type"
-                    (inputChange)="onPasswordChange($event)"></app-password-input>
-                <app-password-input placeholder="Confirm Password" [type]="confirm_password_type"
-                    (inputChange)="onConfirmPasswordChange($event)"></app-password-input>
+        <form (ngSubmit)="submit()">
+            <div class="sign-up">
+                <h1 class="sign-up__h1">Reset password</h1>
+                <div class="input-wrapper">
+                    <div class="sign-up__p">
+                        Create a new password for your <div class="sign-up__p--highlight">Videoflix</div> account.
+                    </div>
+                    <app-password-input placeholder="Enter Password" [type]="password_type"
+                        (inputChange)="onPasswordChange($event)"></app-password-input>
+                    <app-password-input placeholder="Confirm Password" [type]="confirm_password_type"
+                        (inputChange)="onConfirmPasswordChange($event)"></app-password-input>
 
 
-                <div class="visibility__password" (click)="switchPasswordVisibility()"><img [src]="password_visibility"
-                        alt="visibility"></div>
-                <div class="visibility__confirm-password" (click)="switchConfirmPasswordVisibility()"><img
-                        [src]="confirm_password_visibility" alt="visibility"></div>
-            </div>
-            <div class="err-msg-wrapper">
-                <div class="sign-up__err-msg" [style.display]="err_msg_active ? 'flex' : 'none'">
-                    <img src="img/warning.svg" alt="warning">
-                    error message
+                    <div class="visibility__password" (click)="switchPasswordVisibility()"><img
+                            [src]="password_visibility" alt="visibility"></div>
+                    <div class="visibility__confirm-password" (click)="switchConfirmPasswordVisibility()"><img
+                            [src]="confirm_password_visibility" alt="visibility"></div>
                 </div>
+                <div class="err-msg-wrapper">
+                    <div class="sign-up__err-msg" [style.display]="err_msg_active ? 'flex' : 'none'">
+                        <img src="img/warning.svg" alt="warning">
+                        {{ err_msg }}
+                    </div>
+                </div>
+                <button [disabled]="!available" [ngClass]="available ? 'available' : 'unavailable'"
+                    class="sign-up__btn">Reset my password</button>
             </div>
-            <button [disabled]="!available" [ngClass]="available ? 'available' : 'unavailable'" class="sign-up__btn">Get Started</button>
-        </div>
+        </form>
     </div>
 
     <div class="imprint-and-pp">

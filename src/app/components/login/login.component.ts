@@ -31,6 +31,8 @@ export class LoginComponent {
     await this.ls.loginWithEmailAndPassword(this.email, this.password)
       .then(resp => {
         console.log('Login erfolgreich', resp)
+        // user success message before navigating
+        this.router.navigate(['/']);
       })
       .catch(e => {
         if (e.error.detail) {

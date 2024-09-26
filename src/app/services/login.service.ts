@@ -3,6 +3,9 @@ import { environment } from '../environments/environment';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+interface EmailRegisteredResponse {
+  is_registered: boolean;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -40,6 +43,58 @@ export class LoginService {
     });
 
     return lastValueFrom(this.http.post(url, body, { headers: headers }));
+  }
+
+  public resetPassword(password: string, uidb64: string | null, token: string | null,) {
+    if (uidb64 === null || token === null) {
+      uidb64 = '';
+      token = '';
+    }
+
+    const url = environment.baseUrl + '/api/password-reset-complete/';
+    const body = {
+      "password": password,
+      "token": token,
+      "uidb64": uidb64
+    }
+
+    const csrfToken = this.getCookie('csrftoken');
+    const headers = new HttpHeaders({
+      'X-CSRFToken': csrfToken,
+      'Content-Type': 'application/json'
+    });
+
+    return lastValueFrom(this.http.patch(url, body, { headers: headers }));
+  }
+
+  public requestResetEmail(email:string) {
+    const url = environment.baseUrl + '/api/request-reset-email/';
+    const body = {
+      "email": email,
+    }
+
+    const csrfToken = this.getCookie('csrftoken');
+    const headers = new HttpHeaders({
+      'X-CSRFToken': csrfToken,
+      'Content-Type': 'application/json'
+    });
+
+    return lastValueFrom(this.http.post(url, body, { headers: headers }));
+  }
+
+  public isEmailRegistered(email:string) {
+    const url = environment.baseUrl + '/api/check-registered-email/';
+    const body = {
+      "email": email,
+    }
+
+    const csrfToken = this.getCookie('csrftoken');
+    const headers = new HttpHeaders({
+      'X-CSRFToken': csrfToken,
+      'Content-Type': 'application/json'
+    });
+
+    return lastValueFrom(this.http.post<EmailRegisteredResponse>(url, body, { headers: headers }));
   }
 
   private getCookie(name: string): string {

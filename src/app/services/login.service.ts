@@ -15,32 +15,22 @@ export class LoginService {
 
   public loginWithEmailAndPassword(email: string, password: string) {
     const url = environment.baseUrl + '/api/login/';
+    const headers = this.returnHeaders();
     const body = {
       "email": email,
       "password": password
     }
-
-    const csrfToken = this.getCookie('csrftoken');
-    const headers = new HttpHeaders({
-      'X-CSRFToken': csrfToken,
-      'Content-Type': 'application/json'
-    });
 
     return lastValueFrom(this.http.post(url, body, { headers: headers }));
   }
 
   public registerWithEmailAndPassword(email: string, password: string) {
     const url = environment.baseUrl + '/api/register/';
+    const headers = this.returnHeaders();
     const body = {
       "email": email,
       "password": password
     }
-
-    const csrfToken = this.getCookie('csrftoken');
-    const headers = new HttpHeaders({
-      'X-CSRFToken': csrfToken,
-      'Content-Type': 'application/json'
-    });
 
     return lastValueFrom(this.http.post(url, body, { headers: headers }));
   }
@@ -52,49 +42,44 @@ export class LoginService {
     }
 
     const url = environment.baseUrl + '/api/password-reset-complete/';
+    const headers = this.returnHeaders();
     const body = {
       "password": password,
       "token": token,
       "uidb64": uidb64
     }
 
-    const csrfToken = this.getCookie('csrftoken');
-    const headers = new HttpHeaders({
-      'X-CSRFToken': csrfToken,
-      'Content-Type': 'application/json'
-    });
-
     return lastValueFrom(this.http.patch(url, body, { headers: headers }));
   }
 
-  public requestResetEmail(email:string) {
+  public requestResetEmail(email: string) {
     const url = environment.baseUrl + '/api/request-reset-email/';
+    const headers = this.returnHeaders();
     const body = {
       "email": email,
     }
-
-    const csrfToken = this.getCookie('csrftoken');
-    const headers = new HttpHeaders({
-      'X-CSRFToken': csrfToken,
-      'Content-Type': 'application/json'
-    });
 
     return lastValueFrom(this.http.post(url, body, { headers: headers }));
   }
 
-  public isEmailRegistered(email:string) {
+  public isEmailRegistered(email: string) {
     const url = environment.baseUrl + '/api/check-registered-email/';
+    const headers = this.returnHeaders();
     const body = {
       "email": email,
     }
 
+    return lastValueFrom(this.http.post<EmailRegisteredResponse>(url, body, { headers: headers }));
+  }
+
+  returnHeaders() {
     const csrfToken = this.getCookie('csrftoken');
     const headers = new HttpHeaders({
       'X-CSRFToken': csrfToken,
       'Content-Type': 'application/json'
     });
 
-    return lastValueFrom(this.http.post<EmailRegisteredResponse>(url, body, { headers: headers }));
+    return headers
   }
 
   private getCookie(name: string): string {

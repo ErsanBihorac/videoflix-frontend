@@ -6,11 +6,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { FormsModule } from '@angular/forms';
+import { ErrToastComponent } from "../err-toast/err-toast.component";
 
 @Component({
   selector: 'app-reset-p',
   standalone: true,
-  imports: [ FormsModule,CommonModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink],
+  imports: [FormsModule, CommonModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink, ErrToastComponent],
   templateUrl: './reset-p.component.html',
   styleUrl: './reset-p.component.scss'
 })
@@ -32,28 +33,41 @@ export class ResetPComponent implements OnInit {
   uidb64: string | null = null;
   token: string | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  err_toast_msg: string = '';
+  err_toast_is_error: boolean = true;
+  err_toast_hidden: boolean = true;
 
+  constructor(private route: ActivatedRoute, private router: Router) { }
+  
   ngOnInit(): void {
     this.uidb64 = this.route.snapshot.paramMap.get('uidb64');
     this.token = this.route.snapshot.paramMap.get('token');
-
+    
     if (this.uidb64 == null || this.token == null){
       this.uidb64 = '';
       this.token = ''
     }
   }
+  
+  setAndShowErrToast(msg: string, is_err: boolean) {
+    this.err_toast_msg = msg;
+    this.err_toast_is_error = is_err;
 
+    this.err_toast_hidden = false;
+  }
+  
   async reset_password() {
       await this.ls.resetPassword(this.password, this.uidb64, this.token)
         .then(resp => {
           console.log('password reset successfully', resp);
-          // user success message toast before navigating
-          this.router.navigate(['/login']);
+          this.setAndShowErrToast('password reset successfully', false);
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000);
         })
         .catch(e => {
-          if (e.error) {
-            this.activateAndSetErrMsg(e.error);
+          if (e.error.detail) {
+            this.activateAndSetErrMsg(e.error.detail);
             console.log('error', e);
           } else {
             console.log('error', e);
@@ -135,9 +149,5 @@ export class ResetPComponent implements OnInit {
       this.confirm_password_type = 'password';
       this.confirm_password_visibility = 'img/visibility.svg';
     }
-  }
-
-  switchErrorMessage() {
-    this.err_msg_active ? this.err_msg_active = false : this.err_msg_active = true;
   }
 }

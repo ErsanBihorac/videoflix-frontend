@@ -9,8 +9,8 @@
             <img *ngIf="scroll_btn_active" (click)="scroll('next')" src="img/chevron_right.svg" alt="right">
         </div>
         
-        @for (video of videos; track video) {
-            <img class="collection__slide-view--img" src="{{ video }}" alt="video">
+        @for (video of videos; track video.video_img) {
+            <img (click)="openVideoPlayer(video.video_source)" class="collection__slide-view--img" src="{{ video.video_img }}" alt="video">
         }
         
     </div>

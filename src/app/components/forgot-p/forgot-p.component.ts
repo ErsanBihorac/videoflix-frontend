@@ -5,27 +5,41 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { ErrToastComponent } from "../err-toast/err-toast.component";
 
 @Component({
   selector: 'app-forgot-p',
   standalone: true,
-  imports: [FormsModule, CommonModule, LoginBtnComponent, EmailInputComponent, RouterLink],
+  imports: [FormsModule, CommonModule, LoginBtnComponent, EmailInputComponent, RouterLink, ErrToastComponent],
   templateUrl: './forgot-p.component.html',
   styleUrl: './forgot-p.component.scss'
 })
 export class ForgotPComponent {
   ls = inject(LoginService);
   available: boolean = false;
+  email: string = '';
+  
   err_msg_active: boolean = false;
   err_msg: string = 'false';
 
-  email: string = '';
+  err_toast_msg: string = '';
+  err_toast_is_error: boolean = true;
+  err_toast_hidden: boolean = true;
+
+  setAndShowErrToast(msg: string, is_err: boolean) {
+    this.err_toast_msg = msg;
+    this.err_toast_is_error = is_err;
+
+    this.err_toast_hidden = false;
+  }
 
   async requestEmail() {
+    this.deactivateBtn();
+
     await this.ls.requestResetEmail(this.email)
       .then(resp => {
         console.log('email sent sucessfully', resp);
-        // user success message toast
+        this.setAndShowErrToast('We have sent you an email to reset your password', false);
       })
       .catch(e => {
         if (e) {
@@ -76,14 +90,22 @@ export class ForgotPComponent {
     this.err_msg_active = false;
   }
 
+  activateBtn() {
+    this.available = true;
+  }
+
+  deactivateBtn() {
+    this.available = false;
+  }
+
   async onEmailChange(value: string) {
     this.email = value;
     if (this.emailValidation()) {
       if (await this.isEmailRegistered()) {
-        this.available = true;
+        this.activateBtn()
       }
     } else {
-      this.available = false
+      this.deactivateBtn()
     }
   }
 }

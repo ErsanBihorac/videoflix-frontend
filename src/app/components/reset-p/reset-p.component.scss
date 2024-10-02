@@ -7,6 +7,11 @@ section {
     justify-content: space-between;
 }
 
+.err-toast {
+    position: absolute;
+    bottom: 64px;
+}
+
 .positioning-wrapper {
     display: flex;
     justify-content: center;

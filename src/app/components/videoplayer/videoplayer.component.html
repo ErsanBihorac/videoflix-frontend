@@ -1,1 +1,47 @@
-<p>videoplayer works!</p>
+<div #videoContainer class="player-wrapper">
+    <video #videoPlayer class="video-player" (click)="toggleStartStop()"></video>
+
+    <div class="upper-controls" *ngIf="isOverlayVisible">
+        <img (click)="returnToPreviousPage()" class="upper-controls__return-btn" src="/img/arrow_back.svg" alt="return">
+        <!-- <div class="upper-controls__text">Optimizing video for your screen 40%</div> -->
+        <img class="upper-controls__logo" src="/img/logo_symbol.svg" alt="logo">
+    </div>
+
+    <div class="lower-controls" *ngIf="isOverlayVisible">
+        <div class="lower-controls__progress">
+            <div #timelineContainer (mousedown)="toggleScrubbing($event)" (mousemove)="handleTimelineUpdate($event)"
+                class="time-line-container">
+                <div class="time-line-container__timeline">
+                    <div class="time-line-container__timeline__thumb"></div>
+                </div>
+            </div>
+            <div class="lower-controls__progress--time">{{ video_duration }}</div>
+        </div>
+        <div class="lower-controls__icons">
+            <div class="lower-controls__icons--right">
+                <img (click)="startVideo()" src="/img/controls_play.svg" alt="play" *ngIf="video_paused">
+                <img (click)="pauseVideo()" src="/img/controls_pause.svg" alt="pause" *ngIf="!video_paused">
+                <img (click)="skipBackward()" src="/img/controls_back10s.svg" alt="back10s">
+                <img (click)="skipForward()" src="/img/controls_forward10s.svg" alt="forward10s">
+
+                <!-- Volume Icon with hover effect -->
+                <div class="volume-container" (mouseenter)="showVolumeSlider()" (mouseleave)="hideVolumeSlider()">
+                    <img (click)="mute()" src="/img/controls_volume.svg" alt="volume" *ngIf="!volume_mute">
+                    <img (click)="unmute()" src="/img/controls_no_volume.svg" alt="no_volume" *ngIf="volume_mute">
+                    <div class="volume-slider-container" (mouseenter)="onVolumeSliderMouseEnter()"
+                        (mouseleave)="onVolumeSliderMouseLeave()">
+                        <input *ngIf="isVolumeSliderVisible" type="range" min="0" max="100" [(ngModel)]="volume"
+                            (input)="changeVolume($event)" class="volume-slider">
+                    </div>
+                </div>
+            </div>
+            <div class="lower-controls__icons--title">movie title</div>
+            <div class="lower-controls__icons--left">
+                <div class="lower-controls__icons__placeholder"></div>
+                <div class="lower-controls__icons__placeholder"></div>
+                <div class="lower-controls__icons__placeholder"></div>
+                <img (click)="toggleFullscreen()" src="/img/controls_fullscreen.svg" alt="fullscreen">
+            </div>
+        </div>
+    </div>
+</div>

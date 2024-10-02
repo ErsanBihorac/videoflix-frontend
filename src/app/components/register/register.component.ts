@@ -5,17 +5,20 @@ import { PasswordInputComponent } from "../password-input/password-input.compone
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { ErrToastComponent } from "../err-toast/err-toast.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink],
+  imports: [ CommonModule,FormsModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink, ErrToastComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   ls = inject(LoginService);
+  available: boolean = true;
+
   err_msg_active: boolean = false;
   err_msg: string = '';
 
@@ -28,13 +31,29 @@ export class RegisterComponent {
 
   password_visibility: string = 'img/visibility.svg';
   confirm_password_visibility: string = 'img/visibility.svg';
+
+  err_toast_msg: string = '';
+  err_toast_is_error: boolean = true;
+  err_toast_hidden: boolean = true;
   constructor( private router: Router) { }
   
+  setAndShowErrToast(msg: string, is_err: boolean) {
+    this.err_toast_msg = msg;
+    this.err_toast_is_error = is_err;
+
+    this.err_toast_hidden = false;
+  }
+
   async register() {
+    this.deactivateBtn();
+
       await this.ls.registerWithEmailAndPassword(this.email, this.password)
       .then(resp => {
         console.log('succesfully registered', resp);
-        this.router.navigate(['/login']);
+        this.setAndShowErrToast('succesfully registered, please verify your account', false);
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
       })
       .catch(e => {
         if (e.error.email[0]) {
@@ -132,5 +151,13 @@ export class RegisterComponent {
 
   switchErrorMessage() {
     this.err_msg_active ? this.err_msg_active = false : this.err_msg_active = true;
+  }
+
+  activateBtn() {
+    this.available = true;
+  }
+
+  deactivateBtn() {
+    this.available = false;
   }
 }

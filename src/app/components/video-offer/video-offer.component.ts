@@ -3,11 +3,7 @@ import { OfferVideoCollectionComponent } from "../offer-video-collection/offer-v
 import { OfferInfoPreviewComponent } from "../offer-info-preview/offer-info-preview.component";
 import { OfferHeaderComponent } from "../offer-header/offer-header.component";
 import { OfferFooterComponent } from "../offer-footer/offer-footer.component";
-
-export interface Video {
-  title: string;
-  collections: string[]
-}
+import { Collection } from '../../interfaces/collection.model';
 
 @Component({
   selector: 'app-video-offer',
@@ -18,10 +14,55 @@ export interface Video {
 })
 
 export class VideoOfferComponent {
-  content = [
-    { title: 'New on Videoflix', collection: ['/img/preview_img1.jpeg', '/img/preview_img1.jpeg', '/img/preview_img1.jpeg', '/img/preview_img1.jpeg', '/img/preview_img1.jpeg', '/img/preview_img1.jpeg', '/img/preview_img1.jpeg', '/img/preview_img1.jpeg','/img/preview_img1.jpeg','/img/preview_img1.jpeg',] },
-    { title: 'Documentary', collection: ['/img/preview_img2.jpeg','/img/preview_img2.jpeg','/img/preview_img2.jpeg', '/img/preview_img2.jpeg', '/img/preview_img2.jpeg', '/img/preview_img2.jpeg', '/img/preview_img2.jpeg', '/img/preview_img2.jpeg', '/img/preview_img2.jpeg', '/img/preview_img2.jpeg',] },
-    { title: 'Drama', collection: ['/img/preview_img3.jpeg', '/img/preview_img3.jpeg', '/img/preview_img3.jpeg', '/img/preview_img3.jpeg', '/img/preview_img3.jpeg', '/img/preview_img3.jpeg', '/img/preview_img3.jpeg', '/img/preview_img3.jpeg', '/img/preview_img3.jpeg', '/img/preview_img3.jpeg',] },
-    { title: 'Romance', collection: ['/img/preview_img4.jpeg', '/img/preview_img4.jpeg', '/img/preview_img4.jpeg', '/img/preview_img4.jpeg', '/img/preview_img4.jpeg', '/img/preview_img4.jpeg', '/img/preview_img4.jpeg', '/img/preview_img4.jpeg', '/img/preview_img4.jpeg', '/img/preview_img4.jpeg',] }
-  ]
+    content: Collection[] = [
+      {  
+        category: 'New on Videoflix', 
+        videos: [
+          { video_img: '/img/preview_img1.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img1.jpeg', video_source: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8' },
+          { video_img: '/img/preview_img1.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img1.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img1.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img1.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img1.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' }
+        ]
+      },
+      {  
+        category: 'Documentary', 
+        videos: [
+          { video_img: '/img/preview_img2.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img2.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img2.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img2.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img2.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img2.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img2.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' }
+        ]
+      },
+      {  
+        category: 'Drama', 
+        videos: [
+          { video_img: '/img/preview_img3.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img3.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img3.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img3.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img3.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img3.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img3.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' }
+        ]
+      },
+      {  
+        category: 'Romance', 
+        videos: [
+          { video_img: '/img/preview_img4.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img4.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img4.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img4.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img4.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img4.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+          { video_img: '/img/preview_img4.jpeg', video_source: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' }
+        ]
+      }
+    ]
+
 }

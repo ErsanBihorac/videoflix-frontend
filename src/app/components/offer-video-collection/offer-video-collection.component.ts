@@ -1,5 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { VideoData } from '../../interfaces/video-data.model';
 
 @Component({
   selector: 'app-offer-video-collection',
@@ -8,12 +10,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './offer-video-collection.component.html',
   styleUrl: './offer-video-collection.component.scss'
 })
+
 export class OfferVideoCollectionComponent {
   @Input() title: string = '';
-  @Input() videos: string[] = [];
+  @Input() videos: VideoData[] = [];
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   scroll_btn_active: boolean | null = true;
 
+  constructor(private router: Router) { }
+
+  openVideoPlayer(videoUrl: string) {
+    this.router.navigate(['/videoplayer'], { queryParams: { source: videoUrl } });
+  }
+  
   checkForScroll(): void {
     const container = this.scrollContainer.nativeElement;
     const clientWidth = container.clientWidth;

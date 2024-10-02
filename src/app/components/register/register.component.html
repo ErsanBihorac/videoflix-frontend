@@ -30,7 +30,7 @@
                         {{ err_msg }}
                     </div>
                 </div>
-                <button class="sign-up__btn">Get Started</button>
+                <button [disabled]="!available" [ngClass]="available ? 'available' : 'unavailable'" class="sign-up__btn">Get Started</button>
             </div>
         </form>
     </div>
@@ -39,4 +39,6 @@
         <a routerLink="/privacy-policy" class="imprint-and-pp__pp">Datenschutz</a>
         <a routerLink="/imprint" class="imprint-and-pp__imprint">Impressum</a>
     </div>
+
+    <app-err-toast [is_err]="err_toast_is_error" [msg]="err_toast_msg" [hidden]="err_toast_hidden" class="err-toast"></app-err-toast>
 </section>

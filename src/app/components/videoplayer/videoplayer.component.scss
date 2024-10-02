@@ -1,0 +1,228 @@
+@import './../../../styles.scss';
+
+body {
+    margin: 0;
+}
+
+.upper-controls {
+    width: 100%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    width: fill-available;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 32px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.00) 100%);
+
+    &__return-btn {
+        cursor: pointer;
+    }
+
+    &__text {
+        font-size: 12px;
+        font-weight: 400;
+        color: white;
+    }
+}
+
+.time-line-container {
+    height: 7px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    &__timeline {
+        background-color: #B5B5B5;
+        ;
+        width: 100%;
+        height: 3px;
+        position: relative;
+        cursor: pointer;
+
+        &__thumb {
+            --scale: 0;
+            position: absolute;
+            transform: translateX(-50%) scale(var(--scale));
+            height: 200%;
+            top: -50%;
+            left: calc(var(--progress-position) * 100%);
+            background-color: $purple;
+            border-radius: 50%;
+            transition: transform 150ms ease-in-out;
+            aspect-ratio: 1 / 1;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: calc(100% - var(--preview-position) * 100%);
+            background-color: #ECECEC;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: calc(100% - var(--progress-position) * 100%);
+            background-color: $purple;
+        }
+    }
+}
+
+.video-container.scrubbing .time-line-container__timeline::before,
+.time-line-container:hover .time-line-container__timeline::before {
+    display: block;
+}
+
+.video-container.scrubbing .time-line-container__timeline__thumb,
+.time-line-container:hover .time-line-container__timeline__thumb {
+    --scale: 1;
+}
+
+.video-container.scrubbing .time-line-container__timeline,
+.time-line-container:hover .time-line-container__timeline {
+    height: 100%;
+}
+
+.lower-controls {
+    padding: 0px 32px 10px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    position: absolute;
+    background: var(--Gradient, linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.60) 100%));
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    img {
+        cursor: pointer;
+        height: 48px;
+        width: 48px;
+    }
+
+    &__progress {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        align-self: stretch;
+
+        &--time {
+            font-size: 12px;
+            font-weight: 400;
+            color: #E2E2E2;
+        }
+    }
+
+    &__icons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        &__placeholder {
+            width: 48px;
+            height: 48px;
+        }
+
+        &--title {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+
+        &--left {
+            display: flex;
+            gap: 24px;
+        }
+
+        &--right {
+            display: flex;
+            gap: 24px;
+        }
+    }
+}
+
+.video-player {
+    position: absolute;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    object-fit: none;
+    height: 100%;
+}
+
+.video-container {
+    position: relative; // Stelle sicher, dass der Container relativ positioniert ist
+
+    // Überprüfe, ob das Video im Vollbildmodus ist
+    &.fullscreen {
+        width: 100vw; // Breite des Vollbilds
+        height: 100vh; // Höhe des Vollbilds
+        top: 0; // Oben ausrichten
+        left: 0; // Links ausrichten
+        z-index: 100; // Höherer Z-Index, damit das Overlay oben bleibt
+    }
+}
+
+.volume-slider-container {
+    position: absolute;
+    bottom: 30px;
+    margin-left: 50px;
+}
+
+.hidden-cursor {
+    cursor: none;
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+    width: 100px; // Breite des Sliders
+    height: 8px; // Höhe des Sliders
+    background: #ECECEC; // Hintergrundfarbe des Sliders
+    border-radius: 5px; // Runde Ecken
+    outline: none; // Keine Umrandung
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px; // Breite des Daumens
+        height: 16px; // Höhe des Daumens
+        background: $purple; // Daumenfarbe
+        border-radius: 50%; // Runde Form
+        cursor: pointer; // Zeiger-Cursor
+    }
+
+    &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        background: $purple;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+.video-container.fullscreen {
+    position: fixed; // Den gesamten Bildschirm abdecken
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999; // Sicherstellen, dass es über anderen Elementen ist
+}
+
+.video-container.fullscreen .upper-controls,
+.video-container.fullscreen .lower-controls {
+    // Steuerelemente nach Bedarf anpassen
+}

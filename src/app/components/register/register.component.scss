@@ -7,6 +7,20 @@ section {
     justify-content: space-between;
 }
 
+.unavailable {
+    background-color: $purple-unavailable;
+}
+
+.available {
+    background-color: $purple;
+    cursor: pointer;
+}
+
+.err-toast {
+    position: absolute;
+    bottom: 64px;
+}
+
 .positioning-wrapper {
     display: flex;
     justify-content: center;
@@ -63,14 +77,12 @@ section {
         justify-content: center;
         align-items: center;
         border-radius: 40px;
-        background-color: $purple;
         color: white;
         font-size: 18px;
         font-weight: 500;
         font-family: 'dm_sans';
         border: none;
         padding: 12px 24px;
-        cursor: pointer;
         text-decoration: none;
     }
 

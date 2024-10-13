@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ContentService } from '../../services/content.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offer-info-preview',
@@ -8,5 +10,11 @@ import { Component } from '@angular/core';
   styleUrl: './offer-info-preview.component.scss'
 })
 export class OfferInfoPreviewComponent {
+  cs = inject(ContentService)
 
+  constructor(private router: Router) {}
+  
+  openVideoPlayer(videoUrl: string) {
+    this.router.navigate(['/videoplayer'], { queryParams: { source: videoUrl } });
+  }
 }

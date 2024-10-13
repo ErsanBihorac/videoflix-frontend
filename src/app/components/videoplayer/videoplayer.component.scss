@@ -30,6 +30,10 @@ body {
     }
 }
 
+.active_resolution {
+    color: white !important;
+}
+
 .time-line-container {
     height: 7px;
     width: 100%;
@@ -130,10 +134,16 @@ body {
         display: flex;
         justify-content: space-between;
         width: 100%;
+        align-items: center;
 
-        &__placeholder {
+        &__resolution {
+            cursor: pointer;
             width: 48px;
             height: 48px;
+            color: #B5B5B5;
+            align-items: center;
+            justify-content: center;
+            display: flex;
         }
 
         &--title {
@@ -159,20 +169,18 @@ body {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
-    object-fit: none;
+    object-fit: cover;
     height: 100%;
 }
 
 .video-container {
-    position: relative; // Stelle sicher, dass der Container relativ positioniert ist
-
-    // Überprüfe, ob das Video im Vollbildmodus ist
+    position: relative;
     &.fullscreen {
-        width: 100vw; // Breite des Vollbilds
-        height: 100vh; // Höhe des Vollbilds
-        top: 0; // Oben ausrichten
-        left: 0; // Links ausrichten
-        z-index: 100; // Höherer Z-Index, damit das Overlay oben bleibt
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 100;
     }
 }
 
@@ -188,20 +196,20 @@ body {
 
 .volume-slider {
     -webkit-appearance: none;
-    width: 100px; // Breite des Sliders
-    height: 8px; // Höhe des Sliders
-    background: #ECECEC; // Hintergrundfarbe des Sliders
-    border-radius: 5px; // Runde Ecken
-    outline: none; // Keine Umrandung
+    width: 100px; 
+    height: 8px; 
+    background: #ECECEC; 
+    border-radius: 5px;
+    outline: none; 
 
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 16px; // Breite des Daumens
-        height: 16px; // Höhe des Daumens
-        background: $purple; // Daumenfarbe
-        border-radius: 50%; // Runde Form
-        cursor: pointer; // Zeiger-Cursor
+        width: 16px;
+        height: 16px;
+        background: $purple;
+        border-radius: 50%;
+        cursor: pointer;
     }
 
     &::-moz-range-thumb {
@@ -214,15 +222,10 @@ body {
 }
 
 .video-container.fullscreen {
-    position: fixed; // Den gesamten Bildschirm abdecken
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 9999; // Sicherstellen, dass es über anderen Elementen ist
-}
-
-.video-container.fullscreen .upper-controls,
-.video-container.fullscreen .lower-controls {
-    // Steuerelemente nach Bedarf anpassen
+    z-index: 9999;
 }

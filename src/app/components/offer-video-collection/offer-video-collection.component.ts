@@ -1,7 +1,8 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { VideoData } from '../../interfaces/video-data.model';
+import { ContentService } from '../../services/content.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-offer-video-collection',
@@ -12,17 +13,23 @@ import { VideoData } from '../../interfaces/video-data.model';
 })
 
 export class OfferVideoCollectionComponent {
+  cs = inject(ContentService);
   @Input() title: string = '';
   @Input() videos: VideoData[] = [];
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   scroll_btn_active: boolean | null = true;
 
-  constructor(private router: Router) { }
+  constructor(private viewportScroller: ViewportScroller) { }
 
-  openVideoPlayer(videoUrl: string) {
-    this.router.navigate(['/videoplayer'], { queryParams: { source: videoUrl } });
+  selectVideo(video: VideoData) {
+    this.cs.selectedVideo = video;
+    this.scrollToPreview();
   }
-  
+
+  scrollToPreview() {
+    this.viewportScroller.scrollToPosition([0, 0]);
+  }
+
   checkForScroll(): void {
     const container = this.scrollContainer.nativeElement;
     const clientWidth = container.clientWidth;

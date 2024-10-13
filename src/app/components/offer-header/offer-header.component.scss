@@ -10,6 +10,7 @@
     &__logo {
         height: 42px;
         width: 42px;
+        z-index: 1;
     }
 
     &__btn {
@@ -25,6 +26,7 @@
         font-weight: 500;
         cursor: pointer;
         text-decoration: none;
+        z-index: 1;
 
         &--logout-symbol {
             height: 24px;

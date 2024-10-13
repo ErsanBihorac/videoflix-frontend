@@ -3,7 +3,6 @@
 
     <div class="upper-controls" *ngIf="isOverlayVisible">
         <img (click)="returnToPreviousPage()" class="upper-controls__return-btn" src="/img/arrow_back.svg" alt="return">
-        <!-- <div class="upper-controls__text">Optimizing video for your screen 40%</div> -->
         <img class="upper-controls__logo" src="/img/logo_symbol.svg" alt="logo">
     </div>
 
@@ -37,9 +36,9 @@
             </div>
             <div class="lower-controls__icons--title">movie title</div>
             <div class="lower-controls__icons--left">
-                <div class="lower-controls__icons__placeholder"></div>
-                <div class="lower-controls__icons__placeholder"></div>
-                <div class="lower-controls__icons__placeholder"></div>
+                <div (click)="switchQuality(1080)" [ngClass]="resolution == 1080 ? 'active_resolution' : ''" class="lower-controls__icons__resolution">1080p</div>
+                <div (click)="switchQuality(720)" [ngClass]="resolution == 720 ? 'active_resolution' : ''" class="lower-controls__icons__resolution">720p</div>
+                <div (click)="switchQuality(480)" [ngClass]="resolution == 480 ? 'active_resolution' : ''" class="lower-controls__icons__resolution">480p</div>
                 <img (click)="toggleFullscreen()" src="/img/controls_fullscreen.svg" alt="fullscreen">
             </div>
         </div>

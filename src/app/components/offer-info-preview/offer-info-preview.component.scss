@@ -1,6 +1,32 @@
 @import './../../../styles.scss';
 
+.video {
+    // width: 100%;
+    height: 700px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    position: absolute;
+
+    &__bg {
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        position: absolute;
+        height: 700px;
+        width: 1250px;
+        background:
+            linear-gradient(180deg, rgba(20, 20, 20, 0.60) 0%, rgba(20, 20, 20, 0.00) 75%, #141414 100%),
+            linear-gradient(0deg, rgba(20, 20, 20, 0.60) 0%, rgba(20, 20, 20, 0.00) 75%, #141414 100%),
+            linear-gradient(90deg, rgba(20, 20, 20, 0.60) 0%, rgba(20, 20, 20, 0.00) 75%, #141414 100%),
+            // linear-gradient(270deg, rgba(20, 20, 20, 0.60) 0%, rgba(20, 20, 20, 0.00) 50%, #141414 100%);
+    }
+}
+
 .info {
+    background-color: #00000000;
     color: white;
     display: flex;
     flex-direction: column;
@@ -13,6 +39,7 @@
         font-weight: 700;
         margin-block-start: 0;
         margin-block-end: 0;
+        z-index: 1;
     }
 
     &__p {
@@ -20,6 +47,7 @@
         font-weight: 400;
         margin-block-start: 0;
         margin-block-end: 0;
+        z-index: 1;
     }
 
     &__btn {
@@ -36,6 +64,7 @@
         font-weight: 500;
         cursor: pointer;
         text-decoration: none;
+        z-index: 1;
 
         &--symbol {
             height: 24px;

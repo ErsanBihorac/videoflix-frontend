@@ -1,8 +1,9 @@
-import { Component, ElementRef, ViewChild, OnInit, OnDestroy, AfterViewInit, HostListener } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, OnDestroy, AfterViewInit, HostListener, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Hls from 'hls.js';
+import { ContentService } from '../../services/content.service';
 @Component({
   selector: 'app-videoplayer',
   standalone: true,
@@ -11,6 +12,7 @@ import Hls from 'hls.js';
   styleUrls: ['./videoplayer.component.scss']
 })
 export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
+  cs = inject(ContentService)
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
   @ViewChild('previewImg', { static: false }) previewImg!: ElementRef<HTMLImageElement>;
   @ViewChild('videoContainer', { static: false }) videoContainer!: ElementRef<HTMLDivElement>;

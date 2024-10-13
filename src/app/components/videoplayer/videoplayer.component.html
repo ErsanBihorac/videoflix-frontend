@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class="lower-controls__icons--title">movie title</div>
+            <div class="lower-controls__icons--title">{{ this.cs.selectedVideo.video_title }}</div>
             <div class="lower-controls__icons--left">
                 <div (click)="switchQuality(1080)" [ngClass]="resolution == 1080 ? 'active_resolution' : ''" class="lower-controls__icons__resolution">1080p</div>
                 <div (click)="switchQuality(720)" [ngClass]="resolution == 720 ? 'active_resolution' : ''" class="lower-controls__icons__resolution">720p</div>

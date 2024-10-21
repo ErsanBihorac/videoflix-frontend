@@ -11,12 +11,12 @@ export class ContentService {
   http = inject(HttpClient);
   selectedVideo: VideoData = {
     video_id: 1,
-    video_title: 'Breakout',
-    video_description: 'In a high-security prison, a wrongly convicted man formulates a meticulous plan to break out and prove his innocence. He must navigate a web of alliances and betrayals to reclaim his freedom and expose the truth.',
-    video_category: 'New on Videoflix',
-    video_img: `${environment.baseUrl}/media/thumbnails/1/thumbnail.jpeg`,
-    video_source: `${environment.baseUrl}/media/videos/1/master.m3u8`,
-    video_preview: `${environment.baseUrl}/media/previews/1/preview.mp4`
+    video_title: '',
+    video_description: '',
+    video_category: '',
+    video_img: ``,
+    video_source: ``,
+    video_preview: ``
 }
 
   public receiveContent() {

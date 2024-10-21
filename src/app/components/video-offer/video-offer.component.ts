@@ -26,6 +26,11 @@ export class VideoOfferComponent implements OnInit {
       this.transformResponse(resp);
       console.log(resp);
       console.log(this.content);
+      let random_zero_to_three = Math.floor(Math.random() * 4)
+      let random_zero_to_six = Math.floor(Math.random() * 7)
+      console.log('random_zero_to_four', random_zero_to_three)
+      console.log('random_zero_to_seven', random_zero_to_six)
+      this.cs.selectedVideo = this.content[random_zero_to_three].videos[random_zero_to_six];
     }).catch(error => {
       console.error('Fehler beim Laden des Inhalts:', error);
     });

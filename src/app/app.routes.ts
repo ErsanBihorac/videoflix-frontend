@@ -9,10 +9,11 @@ import { ForgotPComponent } from './components/forgot-p/forgot-p.component';
 import { VideoOfferComponent } from './components/video-offer/video-offer.component';
 import { VideoplayerComponent } from './components/videoplayer/videoplayer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: VideoOfferComponent },
-    { path: 'videoplayer', component: VideoplayerComponent },
+    { path: '', component: VideoOfferComponent, canActivate: [AuthGuard] },
+    { path: 'videoplayer', component: VideoplayerComponent, canActivate: [AuthGuard] },
     { path: 'homepage', component: HomepageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },

@@ -2,10 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LoginResponse } from '../interfaces/login-response.model';
+import { EmailRegisteredResponse } from '../interfaces/email-registered-response.model';
 
-interface EmailRegisteredResponse {
-  is_registered: boolean;
-}
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +20,7 @@ export class LoginService {
       "password": password
     }
 
-    return lastValueFrom(this.http.post(url, body, { headers: headers }));
+    return lastValueFrom(this.http.post<LoginResponse>(url, body, { headers: headers }));
   }
 
   public registerWithEmailAndPassword(email: string, password: string) {

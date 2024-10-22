@@ -31,6 +31,8 @@ export class LoginComponent {
     await this.ls.loginWithEmailAndPassword(this.email, this.password)
       .then(resp => {
         console.log('Login erfolgreich', resp)
+        console.log('access Token', resp.access)
+        localStorage.setItem('authToken', resp.access)
         // user success message before navigating
         this.router.navigate(['/']);
       })

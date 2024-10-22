@@ -7,6 +7,7 @@ import { Collection } from '../../interfaces/collection.model';
 import { ContentService } from '../../services/content.service';
 import { VideoData } from '../../interfaces/video-data.model';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-offer',
@@ -20,7 +21,8 @@ export class VideoOfferComponent implements OnInit {
   cs = inject(ContentService);
   content: Collection[] = [];
   selectedVideo: number = 0;
-
+  constructor(private router: Router) { }
+  
   ngOnInit() {
     this.cs.receiveContent().then((resp: any) => {
       this.transformResponse(resp);
@@ -33,7 +35,13 @@ export class VideoOfferComponent implements OnInit {
       this.cs.selectedVideo = this.content[random_zero_to_three].videos[random_zero_to_six];
     }).catch(error => {
       console.error('Fehler beim Laden des Inhalts:', error);
+      this.logout();
     });
+  }
+  
+  logout(){
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
   }
 
   transformResponse(data: any[]) {

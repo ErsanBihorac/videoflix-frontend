@@ -20,8 +20,12 @@ export class ContentService {
 }
 
   public receiveContent() {
+    const token = localStorage.getItem('authToken');
     const url = environment.baseUrl + '/api/content/videos/';
-    return lastValueFrom(this.http.get(url));
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return lastValueFrom(this.http.get(url, {headers: headers}));
   }
 
   returnHeaders() {

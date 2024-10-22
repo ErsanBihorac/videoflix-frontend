@@ -90,7 +90,7 @@ section {
         align-items: center;
         gap: 4px;
         margin-top: -20px;
-        
+
         input {
             cursor: pointer;
         }
@@ -168,5 +168,58 @@ section {
     &__imprint {
         color: white;
         text-decoration: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .header {
+        padding: 10px 16px;
+
+        &__logo {
+            display: none;
+        }
+
+        &__logo-symbol {
+            display: unset;
+        }
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .sign-up {
+        padding: 43px 24px;
+        margin: 0px 16px;
+
+        &__p {
+            font-size: 16px;
+        }
+
+        &__h1 {
+            font-size: 40px;
+        }
+
+        &__text {
+            &--new-to-videoflix {
+                font-size: 16px;
+            }
+        }
+
+        .visibility {
+            &__password {
+                margin-top: 82px;
+            }
+        }
+    }
+
+    @media (max-width: 600px) {
+        .visibility {
+            &__password {
+                right: 56px;
+            }
+        }
     }
 }

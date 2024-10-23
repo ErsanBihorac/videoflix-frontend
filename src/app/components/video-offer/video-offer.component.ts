@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { OfferVideoCollectionComponent } from "../offer-video-collection/offer-video-collection.component";
 import { OfferInfoPreviewComponent } from "../offer-info-preview/offer-info-preview.component";
 import { OfferHeaderComponent } from "../offer-header/offer-header.component";
@@ -17,12 +17,13 @@ import { Router } from '@angular/router';
   styleUrl: './video-offer.component.scss'
 })
 
-export class VideoOfferComponent implements OnInit {
+export class VideoOfferComponent implements OnInit, OnDestroy {
   cs = inject(ContentService);
   content: Collection[] = [];
   selectedVideo: number = 0;
+  scrollAmount: number = 720;
   constructor(private router: Router) { }
-  
+
   ngOnInit() {
     this.cs.receiveContent().then((resp: any) => {
       this.transformResponse(resp);
@@ -37,9 +38,35 @@ export class VideoOfferComponent implements OnInit {
       console.error('Fehler beim Laden des Inhalts:', error);
       this.logout();
     });
+
+    this.setWindowWidth();
+    this.handleResize = this.handleResize.bind(this);
+    window.addEventListener('resize', this.handleResize);
   }
-  
-  logout(){
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+  handleResize() {
+    this.setWindowWidth();
+  }
+
+  setWindowWidth() {
+    if (window.innerWidth < 500) {
+      this.scrollAmount = 240;
+    } else if (window.innerWidth < 700) {
+      this.scrollAmount = 360;
+    } else if (window.innerWidth < 900) {
+      this.scrollAmount = 360;
+    } else if (window.innerWidth < 1275) {
+      this.scrollAmount = 480;
+    } else {
+      this.scrollAmount = 720;
+    }
+  }
+
+  logout() {
     localStorage.removeItem('authToken');
     this.router.navigate(['/login']);
   }

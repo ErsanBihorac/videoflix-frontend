@@ -2,7 +2,7 @@
     <app-offer-header></app-offer-header>
     <app-offer-info-preview></app-offer-info-preview>
     @for (content of content; track content.category) {
-        <app-offer-video-collection [videos]="content.videos" [title]="content.category"></app-offer-video-collection>
+        <app-offer-video-collection [scrollAmount]="this.scrollAmount" [videos]="content.videos" [title]="content.category"></app-offer-video-collection>
     }
     <app-offer-footer></app-offer-footer>
 </section>

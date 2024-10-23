@@ -1,10 +1,10 @@
 <div class="info">
-    <video [src]="this.cs.selectedVideo.video_preview" class="video" #videoPlayer autoplay="autoplay">
+    <video [muted]="'muted'" [src]="this.cs.selectedVideo.video_preview" class="video" #videoPlayer autoplay="autoplay">
         <source  type="type/mp4"/>
         Your browser does not suppor the video tag.
     </video>
+    <div class="video__bg" #videoBg></div>
 
-    <div class="video__bg"></div>
 
     <h1 class="info__h1">{{ this.cs.selectedVideo.video_title }}</h1>
     <p class="info__p">{{ this.cs.selectedVideo.video_description }}</p>

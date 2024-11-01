@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit, OnDestroy, AfterViewInit, HostListener, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, OnDestroy, AfterViewInit, HostListener, inject, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,6 +21,7 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
   resolution: number = 1080;
   hls!: Hls;
   availableQualities: Array<{ height: number, level: number }> = [];
+  private resizeListener!: () => void;
   private timer: any;
   mouseTimeout: any;
   videoSource: string = '';
@@ -34,7 +35,7 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
   isVolumeSliderHover: boolean = false;
   isOverlayVisible: boolean = true;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private renderer: Renderer2) { }
 
   ngOnInit() {
     const video = this.videoPlayer.nativeElement;
@@ -43,6 +44,11 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     document.addEventListener('fullscreenchange', this.handleFullscreenChange);
     document.addEventListener('mousemove', this.onMouseMove.bind(this));
     video.addEventListener('progress', this.handleProgressEvent);
+
+
+    // this.adjustVideoPlayer();
+    // this.resizeListener = this.renderer.listen('window', 'resize', () => this.adjustVideoPlayer());
+    // this.renderer.listen('window', 'load', () => this.adjustVideoPlayer());
 
     this.route.queryParams.subscribe(params => {
       this.videoSource = params['source'];
@@ -61,6 +67,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     document.removeEventListener('mouseup', this.handleDocumentMouseUp);
     document.removeEventListener('mousemove', this.handleDocumentMouseMove);
     document.removeEventListener('fullscreenchange', this.handleFullscreenChange);
+    if (this.resizeListener) {
+      this.resizeListener();
+    }
     this.stopTimer();
   }
 
@@ -113,6 +122,19 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
   handleProgressEvent = () => {
     this.getVideoLoadProgress();
   }
+
+  // adjustVideoPlayer() {
+  //   const screenWidth = window.innerWidth;
+  //   const screenHeight = window.innerHeight;
+
+  //   document.documentElement.style.height = screenHeight + 'px';
+
+  //   if (screenWidth < screenHeight) {
+  //     this.videoContainer?.nativeElement.classList.add('rotated');
+  //   } else {
+  //     this.videoContainer?.nativeElement.classList.remove('rotated');
+  //   }
+  // }
 
   onMouseMove() {
     clearTimeout(this.mouseTimeout);
@@ -302,7 +324,7 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
   loadVideo() {
     if (this.videoSource) {
       this.pauseVideo();
-    
+
       if (Hls.isSupported()) {
         this.hls = new Hls();
 

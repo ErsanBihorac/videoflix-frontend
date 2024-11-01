@@ -1,7 +1,17 @@
 @import './../../../styles.scss';
 
+html,
 body {
     margin: 0;
+    padding: 0;
+}
+
+.logo-title-mobile-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 12px;
 }
 
 .upper-controls {
@@ -24,9 +34,7 @@ body {
     }
 
     &__text {
-        font-size: 12px;
-        font-weight: 400;
-        color: white;
+        display: none;
     }
 }
 
@@ -173,8 +181,10 @@ body {
     height: 100%;
 }
 
+
 .video-container {
     position: relative;
+
     &.fullscreen {
         width: 100vw;
         height: 100vh;
@@ -196,11 +206,11 @@ body {
 
 .volume-slider {
     -webkit-appearance: none;
-    width: 100px; 
-    height: 8px; 
-    background: #ECECEC; 
+    width: 100px;
+    height: 8px;
+    background: #ECECEC;
     border-radius: 5px;
-    outline: none; 
+    outline: none;
 
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
@@ -228,4 +238,81 @@ body {
     right: 0;
     bottom: 0;
     z-index: 9999;
+}
+
+.rotated {
+    transform: rotate(90deg);
+    width: 100vh;
+    /* Passe die Breite an die Höhe des Viewports an */
+    height: 100vw;
+    /* Passe die Höhe an die Breite des Viewports an */
+}
+
+.d-none-before700px {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .d-none-after700px {
+        display: none;
+    }
+
+    .d-none-before700px {
+        display: unset;
+    }
+
+
+    .upper-controls {
+        flex-direction: row-reverse;
+
+        &__logo {
+            width: 32px;
+            height: 32px;
+        }
+
+        &__text {
+            display: unset;
+            font-size: 20px;
+            font-weight: 500;
+            color: white;
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+    }
+
+    .lower-controls {
+        &__icons {
+            justify-content: center;
+
+            &--title {
+                display: none;
+            }
+
+            &--play {
+                position: fixed;
+                top: 50%;
+                left: 45%;
+            }
+
+            &--pause {
+                position: fixed;
+                top: 50%;
+                left: 45%;
+            }
+
+            &--back {
+                margin-left: -25%;
+                position: fixed;
+                top: 50%;
+                left: 45%;
+            }
+
+            &--forward {
+                margin-left: 25%;
+                position: fixed;
+                top: 50%;
+                left: 45%;
+            }
+        }
+    }
 }

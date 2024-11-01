@@ -1,12 +1,17 @@
-<div #videoContainer class="player-wrapper">
+<div #videoContainer>
     <video #videoPlayer class="video-player" (click)="toggleStartStop()"></video>
 
-    <div class="upper-controls" *ngIf="isOverlayVisible">
-        <img (click)="returnToPreviousPage()" class="upper-controls__return-btn" src="/img/arrow_back.svg" alt="return">
-        <img class="upper-controls__logo" src="/img/logo_symbol.svg" alt="logo">
+    <div #upperControls class="upper-controls" *ngIf="isOverlayVisible">
+        <img (click)="returnToPreviousPage()" class="upper-controls__return-btn d-none-after700px" src="/img/arrow_back.svg" alt="return">
+        <img (click)="returnToPreviousPage()" class="upper-controls__return-btn d-none-before700px" src="/img/close_small.svg" alt="return">
+
+        <div class="logo-title-mobile-view">
+            <p class="upper-controls__text">{{ this.cs.selectedVideo.video_title }}</p>
+            <img class="upper-controls__logo" src="/img/logo_symbol.svg" alt="logo">
+        </div>
     </div>
 
-    <div class="lower-controls" *ngIf="isOverlayVisible">
+    <div #lowerControls class="lower-controls" *ngIf="isOverlayVisible">
         <div class="lower-controls__progress">
             <div #timelineContainer (mousedown)="toggleScrubbing($event)" (mousemove)="handleTimelineUpdate($event)"
                 class="time-line-container">
@@ -18,13 +23,13 @@
         </div>
         <div class="lower-controls__icons">
             <div class="lower-controls__icons--right">
-                <img (click)="startVideo()" src="/img/controls_play.svg" alt="play" *ngIf="video_paused">
-                <img (click)="pauseVideo()" src="/img/controls_pause.svg" alt="pause" *ngIf="!video_paused">
-                <img (click)="skipBackward()" src="/img/controls_back10s.svg" alt="back10s">
-                <img (click)="skipForward()" src="/img/controls_forward10s.svg" alt="forward10s">
+                <img class="lower-controls__icons--play" (click)="startVideo()" src="/img/controls_play.svg" alt="play" *ngIf="video_paused">
+                <img class="lower-controls__icons--pause" (click)="pauseVideo()" src="/img/controls_pause.svg" alt="pause" *ngIf="!video_paused">
+                <img class="lower-controls__icons--back" (click)="skipBackward()" src="/img/controls_back10s.svg" alt="back10s">
+                <img class="lower-controls__icons--forward" (click)="skipForward()" src="/img/controls_forward10s.svg" alt="forward10s">
 
                 <!-- Volume Icon with hover effect -->
-                <div class="volume-container" (mouseenter)="showVolumeSlider()" (mouseleave)="hideVolumeSlider()">
+                <div class="volume-container d-none-after700px" (mouseenter)="showVolumeSlider()" (mouseleave)="hideVolumeSlider()">
                     <img (click)="mute()" src="/img/controls_volume.svg" alt="volume" *ngIf="!volume_mute">
                     <img (click)="unmute()" src="/img/controls_no_volume.svg" alt="no_volume" *ngIf="volume_mute">
                     <div class="volume-slider-container" (mouseenter)="onVolumeSliderMouseEnter()"
@@ -39,7 +44,7 @@
                 <div (click)="switchQuality(1080)" [ngClass]="resolution == 1080 ? 'active_resolution' : ''" class="lower-controls__icons__resolution">1080p</div>
                 <div (click)="switchQuality(720)" [ngClass]="resolution == 720 ? 'active_resolution' : ''" class="lower-controls__icons__resolution">720p</div>
                 <div (click)="switchQuality(480)" [ngClass]="resolution == 480 ? 'active_resolution' : ''" class="lower-controls__icons__resolution">480p</div>
-                <img (click)="toggleFullscreen()" src="/img/controls_fullscreen.svg" alt="fullscreen">
+                <img (click)="toggleFullscreen()" class="d-none-after700px" src="/img/controls_fullscreen.svg" alt="fullscreen">
             </div>
         </div>
     </div>

@@ -14,6 +14,10 @@ export class PasswordInputComponent {
   @Output() inputChange = new EventEmitter<string>();
   value: string = '';
 
+  /**
+   * Function that executes everytime the input value changes
+   * @param value -String value of the input field
+   */
   onInputChange(value: string) {
     this.value = value;
     this.inputChange.emit(this.value);

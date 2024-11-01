@@ -13,10 +13,16 @@ export class ErrToastComponent {
   @Input() is_err: boolean = true;
   @Input() hidden: boolean = true;
 
+  /**
+   * Function to display the error toast
+   */
   showErrToast = () => {
     this.hidden = false;
   }
 
+  /**
+   * Function to hide the error toast
+   */
   hideErrToast() {
     this.hidden = true;
   }

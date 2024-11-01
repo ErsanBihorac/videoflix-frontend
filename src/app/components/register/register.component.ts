@@ -33,12 +33,20 @@ export class RegisterComponent {
 
   constructor( private router: Router) { }
   
+  /**
+   * Function to display, set the error toast message and if should appear as an error or normal popup
+   * @param msg -Error toast message
+   * @param is_err -Sets the error toast to an error if true
+   */
   setAndShowErrToast(msg: string, is_err: boolean) {
     this.err_toast_msg = msg;
     this.err_toast_is_error = is_err;
     this.err_toast_hidden = false;
   }
 
+  /**
+   * Function to register
+   */
   async register() {
     this.deactivateBtn();
       await this.ls.registerWithEmailAndPassword(this.email, this.password)
@@ -55,12 +63,19 @@ export class RegisterComponent {
       });
   }
 
+  /**
+   * Function to submit the form
+   */
   submit() {
     if (this.emailValidation() && this.passwordValidation() && this.confirmPasswordValidation()) {
       this.register();
     }
   }
 
+  /**
+   * Function to validate the confirm password field
+   * @returns -True if validation is successfull
+   */
   confirmPasswordValidation() {
     if (this.password !== this.confirm_password) {
       this.activateAndSetErrMsg('Passwords do not match.');
@@ -71,6 +86,10 @@ export class RegisterComponent {
     }
   }
 
+  /**
+   * Function to validate the password field
+   * @returns -True if validation is successfull
+   */
   passwordValidation() {
     if (this.password === '') {
       this.activateAndSetErrMsg('Please enter a password.');
@@ -84,6 +103,10 @@ export class RegisterComponent {
     }
   }
 
+  /**
+   * Function to validate the email field
+   * @returns -True if validation is successfull
+   */
   emailValidation() {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (this.email === '') {
@@ -98,27 +121,49 @@ export class RegisterComponent {
     };
   }
 
+  /**
+   * Function to display and set the error message
+   * @param msg -Error message
+   */
   activateAndSetErrMsg(msg: string) {
     this.err_msg_active = true;
     this.err_msg = msg;
   }
 
+  /**
+   * Function to hide the error message
+   */
   deactivateErrMsg() {
     this.err_msg_active = false;
   }
 
+  /**
+   * Function that executes everytime the email field changes
+   * @param value -Input value
+   */
   onEmailChange(value: string) {
     this.email = value;
   }
 
+  /**
+   * Function that executes everytime the password field changes
+   * @param value -Input value
+   */
   onPasswordChange(value: string) {
     this.password = value;
   }
 
+  /**
+   * Function that executes everytime the confirm password field changes
+   * @param value -Input value
+   */
   onConfirmPasswordChange(value: string) {
     this.confirm_password = value;
   }
 
+  /**
+   * Function to hide or display the password value
+   */
   switchPasswordVisibility() {
     if (this.password_type === 'password') {
       this.password_type = 'text';
@@ -129,6 +174,9 @@ export class RegisterComponent {
     }
   }
 
+  /**
+   * Function to hide or display the confirm password value
+   */
   switchConfirmPasswordVisibility() {
     if (this.confirm_password_type === 'password') {
       this.confirm_password_type = 'text';
@@ -139,14 +187,16 @@ export class RegisterComponent {
     }
   }
 
-  switchErrorMessage() {
-    this.err_msg_active ? this.err_msg_active = false : this.err_msg_active = true;
-  }
-
+  /**
+   * Function to enable the "get started" button
+   */
   activateBtn() {
     this.available = true;
   }
 
+  /**
+   * Function to disable the "get started" button
+   */
   deactivateBtn() {
     this.available = false;
   }

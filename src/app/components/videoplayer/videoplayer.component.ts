@@ -82,7 +82,11 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
       this.videoContainer.nativeElement.classList.remove('fullscreen');
     }
   }
-
+ 
+  /**
+   * Function to handle the time line update
+   * @param e
+   */
   handleTimelineUpdate(e: MouseEvent) {
     const rect = this.timelineContainer.nativeElement.getBoundingClientRect();
     const percent = Math.min(Math.max(0, e.clientX - rect.left), rect.width) / rect.width;
@@ -93,18 +97,29 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to handle the mouse up event on the document
+   * @param e 
+   */
   handleDocumentMouseUp = (e: MouseEvent) => {
     if (this.isScrubbing) {
       this.toggleScrubbing(e);
     }
   }
 
+  /**
+   * Function to handle the mouse move event on the document
+   * @param e 
+   */
   handleDocumentMouseMove = (e: MouseEvent) => {
     if (this.isScrubbing) {
       this.handleTimelineUpdate(e);
     }
   }
 
+  /**
+   * Function to handle the full screen change
+   */
   handleFullscreenChange = () => {
     if (document.fullscreenElement) {
       this.videoContainer.nativeElement.classList.add('fullscreen');
@@ -113,10 +128,16 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to handle the progress of the video loading
+   */
   handleProgressEvent = () => {
     this.getVideoLoadProgress();
   }
 
+  /**
+   * Function to check if the mouse has moved in the past 3000 miliseconds / 3 seconds
+   */
   onMouseMove() {
     clearTimeout(this.mouseTimeout);
 
@@ -129,18 +150,30 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 3000);
   }
 
+  /**
+   * Function to display the overlay
+   */
   showOverlay() {
     this.isOverlayVisible = true;
   }
 
+  /**
+   * Function to hide the overlay
+   */
   hideOverlay() {
     this.isOverlayVisible = false;
   }
 
+  /**
+   * Function to display the volume slider
+   */
   showVolumeSlider() {
     this.isVolumeSliderVisible = true;
   }
 
+  /**
+   * Function to enable full screen
+   */
   toggleFullscreen() {
     const elem = document.documentElement;
 
@@ -155,6 +188,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to mute the video
+   */
   mute() {
     const video = this.videoPlayer.nativeElement;
     if (!video.muted) {
@@ -163,6 +199,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to unmute the video
+   */
   unmute() {
     const video = this.videoPlayer.nativeElement;
     if (video.muted) {
@@ -171,6 +210,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to hide the volume sliderr
+   */
   hideVolumeSlider() {
     setTimeout(() => {
       if (!this.isVolumeSliderHover) {
@@ -179,14 +221,24 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 300);
   }
 
+  /**
+   * Function to display the volume slider
+   */
   onVolumeSliderMouseEnter() {
     this.isVolumeSliderHover = true;
   }
 
+  /**
+   * Function to hide the volume slider
+   */
   onVolumeSliderMouseLeave() {
     this.isVolumeSliderHover = false;
   }
 
+  /**
+   * Function to get the time line progress of what's been loaded
+   * @returns 
+   */
   getVideoLoadProgress() {
     const video = this.videoPlayer.nativeElement;
     const timeline = this.timelineContainer?.nativeElement;
@@ -204,6 +256,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     return '0.00';
   }
 
+  /**
+   * Function to start video timer
+   */
   startTimer() {
     this.timer = setInterval(() => {
       this.getRemainingTime();
@@ -211,6 +266,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 1000);
   }
 
+  /**
+   * Function to stop video timer
+   */
   stopTimer() {
     if (this.timer) {
       clearInterval(this.timer);
@@ -218,6 +276,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to get the remaining time of the video
+   */
   getRemainingTime() {
     const video = this.videoPlayer.nativeElement;
     const currentTime = video.currentTime;
@@ -229,6 +290,10 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.video_duration = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 
+  /**
+   * Function to set the progress of the video time line
+   * @returns 
+   */
   updateProgressPosition() {
     const video = this.videoPlayer?.nativeElement;
     const timeline = this.timelineContainer?.nativeElement;
@@ -239,6 +304,10 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     timeline.style.setProperty('--progress-position', progress.toString());
   }
 
+  /**
+   * Function to toggle scrubbing when time line is changing
+   * @param e 
+   */
   toggleScrubbing(e: MouseEvent) {
     const rect = this.timelineContainer.nativeElement.getBoundingClientRect();
     const percent = Math.min(Math.max(0, e.clientX - rect.left), rect.width) / rect.width;
@@ -255,6 +324,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.handleTimelineUpdate(e);
   }
 
+  /**
+   * Function to return to the previous page
+   */
   returnToPreviousPage() {
     if (document.fullscreenElement) {
       this.toggleFullscreen();
@@ -262,6 +334,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate(['/']);
   }
 
+  /**
+   * Function to start or stop the video
+   */
   toggleStartStop() {
     const video = this.videoPlayer.nativeElement;
     if (video.paused) {
@@ -271,6 +346,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to start the video
+   */
   startVideo() {
     const video = this.videoPlayer.nativeElement;
     if (video.paused) {
@@ -279,6 +357,9 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to pause the video
+   */
   pauseVideo() {
     const video = this.videoPlayer.nativeElement;
     if (!video.paused) {
@@ -287,21 +368,34 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to skip 10 seconds on the video
+   */
   skipForward() {
     const video = this.videoPlayer.nativeElement;
     video.currentTime = Math.min(video.currentTime + 10, video.duration);
   }
 
+  /**
+   * Function to return 10 seconds on the video
+   */
   skipBackward() {
     const video = this.videoPlayer.nativeElement;
     video.currentTime = Math.max(video.currentTime - 10, 0);
   }
 
+  /**
+   * Function to change the volume of the video
+   * @param event 
+   */
   changeVolume(event: any) {
     const video = this.videoPlayer.nativeElement;
     video.volume = event.target.value / 100;
   }
 
+  /**
+   * Function to load the video segments
+   */
   loadVideo() {
     if (this.videoSource) {
       this.pauseVideo();
@@ -324,6 +418,10 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Function to select the video quality
+   * @param height 
+   */
   switchQuality(height: number) {
     if (this.hls) {
       this.resolution = height;

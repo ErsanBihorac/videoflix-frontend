@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 export class OfferHeaderComponent {
   constructor(private router: Router) { }
 
+  /**
+   * Function to log out
+   */
    logout(){
     localStorage.removeItem('authToken');
     this.router.navigate(['/login']);

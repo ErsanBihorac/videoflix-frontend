@@ -27,15 +27,25 @@ export class OfferInfoPreviewComponent implements AfterViewInit, OnDestroy {
     window.removeEventListener('resize', this.handleResize);
   }
 
+  /**
+   * Function to handle the resize event listener
+   */
   handleResize() {
     this.setVideoBgHeight();
   }
 
+  /**
+   * Function to set the video background height
+   */
   setVideoBgHeight() {
     const videoHeight = this.videoPlayer.nativeElement.offsetHeight;
     this.videoBg.nativeElement.style.height = `${videoHeight}px`;
   }
 
+  /**
+   * Function to open the videoplayer page and set the query parameters
+   * @param videoUrl -String value / video url
+   */
   openVideoPlayer(videoUrl: string) {
     this.router.navigate(['/videoplayer'], { queryParams: { source: videoUrl } });
   }

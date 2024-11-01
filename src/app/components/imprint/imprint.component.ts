@@ -11,6 +11,9 @@ import { Location } from '@angular/common';
 export class ImprintComponent {
   constructor(private location: Location) { }
 
+  /**
+   * Function to return to the previously visited page
+   */
   returnToPreviousPage() {
     this.location.back();
   }

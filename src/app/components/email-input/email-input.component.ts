@@ -16,6 +16,10 @@ export class EmailInputComponent {
   ls = inject(LoginService);
   value: string = '';
 
+/**
+ * Function to set the parameter to the input value and emit it 
+ * @param value -String value that will be shown in the input field
+ */
   onInputChange(value: string) {
     this.value = value;
     this.inputChange.emit(this.value);

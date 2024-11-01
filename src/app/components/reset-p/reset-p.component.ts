@@ -49,6 +49,9 @@ export class ResetPComponent implements OnInit {
     this.err_toast_hidden = false;
   }
 
+  /**
+   * Function to reset the password
+   */
   async reset_password() {
     await this.ls.resetPassword(this.password, this.uidb64, this.token)
       .then(resp => {
@@ -64,12 +67,19 @@ export class ResetPComponent implements OnInit {
       });
   }
 
+  /**
+   * Function to submit the form
+   */
   submit() {
     if (this.passwordValidation() && this.confirmPasswordValidation()) {
       this.reset_password();
     }
   }
 
+  /**
+   * Function to validate the confirm password field
+   * @returns -True if validation is successfull
+   */
   confirmPasswordValidation() {
     if (this.password !== this.confirm_password) {
       this.activateAndSetErrMsg('Passwords do not match.');
@@ -80,6 +90,10 @@ export class ResetPComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to validate the password field
+   * @returns -True if validation is successfull
+   */
   passwordValidation() {
     if (this.password === '') {
       this.activateAndSetErrMsg('Please enter a password.');
@@ -93,25 +107,43 @@ export class ResetPComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to enable and set the error message
+   * @param msg -Error message
+   */
   activateAndSetErrMsg(msg: string) {
     this.err_msg_active = true;
     this.err_msg = msg;
   }
 
+  /**
+   * Function to disable the error message
+   */
   deactivateErrMsg() {
     this.err_msg_active = false;
   }
 
+  /**
+   * Function that executes everytime the password value changes
+   * @param value -Input value
+   */
   onPasswordChange(value: string) {
     this.password = value;
     this.checkPasswordSimilarity();
   }
 
+  /**
+   * Function that executes everytime the confirm password value changes
+   * @param value -Input value
+   */
   onConfirmPasswordChange(value: string) {
     this.confirm_password = value;
     this.checkPasswordSimilarity();
   }
 
+  /**
+   * Function to check if the password and confirm password values are the same
+   */
   checkPasswordSimilarity() {
     if (this.password === this.confirm_password) {
       this.available = true;
@@ -120,6 +152,9 @@ export class ResetPComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to display or hide the password value
+   */
   switchPasswordVisibility() {
     if (this.password_type === 'password') {
       this.password_type = 'text';
@@ -130,6 +165,9 @@ export class ResetPComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to display or hide the confirm password value
+   */
   switchConfirmPasswordVisibility() {
     if (this.confirm_password_type === 'password') {
       this.confirm_password_type = 'text';

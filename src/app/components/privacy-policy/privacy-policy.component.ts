@@ -11,6 +11,9 @@ import { Location } from '@angular/common';
 export class PrivacyPolicyComponent {
   constructor(private location: Location) { }
   
+  /**
+   * Function return to the previous page
+   */
   returnToPreviousPage() {
     this.location.back();
   }

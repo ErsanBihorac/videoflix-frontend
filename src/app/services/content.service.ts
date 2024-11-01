@@ -19,6 +19,10 @@ export class ContentService {
     video_preview: ``
   }
 
+  /**
+   * 
+   * @returns Function to receive the content used for the videos
+   */
   public receiveContent() {
     const token = localStorage.getItem('authToken');
     const url = environment.baseUrl + '/api/content/videos/';
@@ -28,6 +32,10 @@ export class ContentService {
     return lastValueFrom(this.http.get(url, { headers: headers }));
   }
 
+  /**
+   * Function to return headers
+   * @returns 
+   */
   returnHeaders() {
     const csrfToken = this.getCookie('csrftoken');
     const headers = new HttpHeaders({
@@ -38,6 +46,11 @@ export class ContentService {
     return headers
   }
 
+  /**
+   * Function to get a specific cookie
+   * @param name -Key name of the cookie
+   * @returns -Value of the cookie
+   */
   private getCookie(name: string): string {
     let cookieValue = '';
     if (document.cookie && document.cookie !== '') {

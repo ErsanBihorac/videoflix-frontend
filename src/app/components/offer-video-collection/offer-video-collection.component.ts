@@ -21,15 +21,26 @@ export class OfferVideoCollectionComponent {
 
   constructor(private viewportScroller: ViewportScroller) { }
 
+  /**
+   * Function to select the preview video
+   * @param video -Video
+   */
   selectVideo(video: VideoData) {
     this.cs.selectedVideo = video;
     this.scrollToPreview();
   }
 
+  /**
+   * Function to scroll to the preview video
+   */
   scrollToPreview() {
     this.viewportScroller.scrollToPosition([0, 0]);
   }
 
+  /**
+   * Function to scroll left and right to see the other videos displayed
+   * @param direction -Scroll direction
+   */
   scroll(direction: 'next' | 'back') {
     if (this.scrollContainer) {
       const container = this.scrollContainer.nativeElement;

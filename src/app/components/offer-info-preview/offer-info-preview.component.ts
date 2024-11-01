@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   styleUrl: './offer-info-preview.component.scss'
 })
 export class OfferInfoPreviewComponent implements AfterViewInit, OnDestroy {
-  cs = inject(ContentService)
   @ViewChild('videoPlayer', { static: false }) videoPlayer!: ElementRef;
   @ViewChild('videoBg', { static: false }) videoBg!: ElementRef;
+  cs = inject(ContentService)
 
   constructor(private router: Router) { }
 

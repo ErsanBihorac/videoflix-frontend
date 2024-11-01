@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit, OnDestroy, AfterViewInit, HostListener, inject, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Hls from 'hls.js';
 import { ContentService } from '../../services/content.service';
@@ -12,17 +12,16 @@ import { ContentService } from '../../services/content.service';
   styleUrls: ['./videoplayer.component.scss']
 })
 export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
-  cs = inject(ContentService)
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
   @ViewChild('previewImg', { static: false }) previewImg!: ElementRef<HTMLImageElement>;
   @ViewChild('videoContainer', { static: false }) videoContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('timelineContainer', { static: false }) timelineContainer!: ElementRef<HTMLDivElement>;
-
+  private resizeListener!: () => void;
+  private timer: any;
+  cs = inject(ContentService)
   resolution: number = 1080;
   hls!: Hls;
   availableQualities: Array<{ height: number, level: number }> = [];
-  private resizeListener!: () => void;
-  private timer: any;
   mouseTimeout: any;
   videoSource: string = '';
   isScrubbing: boolean = false;
@@ -44,11 +43,6 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     document.addEventListener('fullscreenchange', this.handleFullscreenChange);
     document.addEventListener('mousemove', this.onMouseMove.bind(this));
     video.addEventListener('progress', this.handleProgressEvent);
-
-
-    // this.adjustVideoPlayer();
-    // this.resizeListener = this.renderer.listen('window', 'resize', () => this.adjustVideoPlayer());
-    // this.renderer.listen('window', 'load', () => this.adjustVideoPlayer());
 
     this.route.queryParams.subscribe(params => {
       this.videoSource = params['source'];
@@ -103,13 +97,13 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.isScrubbing) {
       this.toggleScrubbing(e);
     }
-  };
+  }
 
   handleDocumentMouseMove = (e: MouseEvent) => {
     if (this.isScrubbing) {
       this.handleTimelineUpdate(e);
     }
-  };
+  }
 
   handleFullscreenChange = () => {
     if (document.fullscreenElement) {
@@ -117,24 +111,11 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.videoContainer.nativeElement.classList.remove('fullscreen');
     }
-  };
+  }
 
   handleProgressEvent = () => {
     this.getVideoLoadProgress();
   }
-
-  // adjustVideoPlayer() {
-  //   const screenWidth = window.innerWidth;
-  //   const screenHeight = window.innerHeight;
-
-  //   document.documentElement.style.height = screenHeight + 'px';
-
-  //   if (screenWidth < screenHeight) {
-  //     this.videoContainer?.nativeElement.classList.add('rotated');
-  //   } else {
-  //     this.videoContainer?.nativeElement.classList.remove('rotated');
-  //   }
-  // }
 
   onMouseMove() {
     clearTimeout(this.mouseTimeout);
@@ -245,7 +226,7 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     const hours = Math.floor(remainingTime / 3600);
     const minutes = Math.floor((remainingTime % 3600) / 60);
     const seconds = Math.floor(remainingTime % 60);
-    this.video_duration = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`; // Gibt die verbleibende Zeit zurück
+    this.video_duration = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 
   updateProgressPosition() {
@@ -327,41 +308,29 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
 
       if (Hls.isSupported()) {
         this.hls = new Hls();
-
-        // Lade den Videostream und verbinde ihn mit dem Video-Element
         this.hls.loadSource(this.videoSource);
         this.hls.attachMedia(this.videoPlayer.nativeElement);
-
-        // Event: Wenn das HLS-Manifest geparst wurde, verfügbare Qualitätsstufen abrufen
         this.hls.on(Hls.Events.MANIFEST_PARSED, (_, data) => {
           this.availableQualities = data.levels.map((level: any, index: number) => {
             return { height: level.height, level: index };
           });
-          console.log('Verfügbare Qualitätsstufen:', this.availableQualities);
           this.videoPlayer.nativeElement.volume = this.volume / 100;
           this.startVideo();
         });
       } else if (this.videoPlayer.nativeElement.canPlayType('application/vnd.apple.mpegurl')) {
-        // Fallback für Safari-Browser (natives HLS)
         this.videoPlayer.nativeElement.src = this.videoSource;
         this.videoPlayer.nativeElement.volume = this.volume / 100;
       }
     }
   }
 
-  // Funktion zum Wechseln der Auflösung
   switchQuality(height: number) {
     if (this.hls) {
       this.resolution = height;
       const selectedQuality = this.availableQualities.find(q => q.height === height);
       if (selectedQuality) {
-        console.log(`Wechsle zu ${height}p`);
         this.hls.currentLevel = selectedQuality.level;
-      } else {
-        console.error(`Qualität ${height}p nicht verfügbar`);
       }
     }
   }
-
-  // Optional: Event Listener und weitere Funktionen in ngOnDestroy und weiteren Lifecycles...
 }

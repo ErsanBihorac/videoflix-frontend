@@ -15,12 +15,8 @@
                     <div class="sign-up__p">
                         Create a new password for your <div class="sign-up__p--highlight">Videoflix</div> account.
                     </div>
-                    <app-password-input placeholder="Enter Password" [type]="password_type"
-                        (inputChange)="onPasswordChange($event)"></app-password-input>
-                    <app-password-input placeholder="Confirm Password" [type]="confirm_password_type"
-                        (inputChange)="onConfirmPasswordChange($event)"></app-password-input>
-
-
+                    <app-password-input placeholder="Enter Password" [type]="password_type" (inputChange)="onPasswordChange($event)"></app-password-input>
+                    <app-password-input placeholder="Confirm Password" [type]="confirm_password_type" (inputChange)="onConfirmPasswordChange($event)"></app-password-input>
                     <div class="visibility__password" (click)="switchPasswordVisibility()"><img
                             [src]="password_visibility" alt="visibility"></div>
                     <div class="visibility__confirm-password" (click)="switchConfirmPasswordVisibility()"><img

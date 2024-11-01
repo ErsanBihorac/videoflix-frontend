@@ -243,9 +243,7 @@ body {
 .rotated {
     transform: rotate(90deg);
     width: 100vh;
-    /* Passe die Breite an die Höhe des Viewports an */
     height: 100vw;
-    /* Passe die Höhe an die Breite des Viewports an */
 }
 
 .d-none-before700px {

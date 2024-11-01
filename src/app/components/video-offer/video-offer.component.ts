@@ -27,15 +27,8 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.cs.receiveContent().then((resp: any) => {
       this.transformResponse(resp);
-      console.log(resp);
-      console.log(this.content);
-      let random_zero_to_three = Math.floor(Math.random() * 4)
-      let random_zero_to_six = Math.floor(Math.random() * 7)
-      console.log('random_zero_to_four', random_zero_to_three)
-      console.log('random_zero_to_seven', random_zero_to_six)
-      this.cs.selectedVideo = this.content[random_zero_to_three].videos[random_zero_to_six];
-    }).catch(error => {
-      console.error('Fehler beim Laden des Inhalts:', error);
+      this.selectRandomVideo();
+    }).catch(e => {
       this.logout();
     });
 
@@ -51,6 +44,12 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
   handleResize() {
     this.setWindowWidth();
   }
+
+  selectRandomVideo() {
+    let num_zero_to_three = Math.floor(Math.random() * 4)
+    let num_zero_to_six = Math.floor(Math.random() * 7)
+    this.cs.selectedVideo = this.content[num_zero_to_three].videos[num_zero_to_six];
+  };
 
   setWindowWidth() {
     if (window.innerWidth < 500) {
@@ -71,7 +70,7 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  transformResponse(data: any[]) {
+  returnCategoryMapping() {
     const categoryMapping: { [key: string]: string } = {
       'new': 'New on Videoflix',
       'documentary': 'Documentary',
@@ -79,33 +78,50 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
       'romance': 'Romance'
     };
 
-    // Erstelle eine leere Sammlung für jede benutzerfreundliche Kategorie
+    return categoryMapping
+  }
+
+  returnCollections() {
+    const categoryMapping = this.returnCategoryMapping();
+
     const collections: Collection[] = Object.values(categoryMapping).map(category => ({
       category: category,
-      videos: []  // Leeres Array für die Videos in jeder Kategorie
+      videos: []
     }));
 
-    // Gehe die Videos durch und füge sie in die richtige Kategorie-Sammlung ein
-    data.forEach(item => {
-      const video: VideoData = {
-        video_id: item.id,
-        video_title: item.title,
-        video_description: item.description,
-        video_category: item.category,  // Verwende das Mapping hier für die Video-Daten
-        video_img: `${environment.baseUrl}/media/thumbnails/${item.id}/thumbnail.jpeg`,  // Verwende das Thumbnail
-        video_source: `${environment.baseUrl}/media/videos/${item.id}/master.m3u8`,  // Generiere den HLS-Link
-        video_preview: `${environment.baseUrl}/media/previews/${item.id}/preview.mp4`  // Generiere den Preview-Link
-      };
+    return collections
+  }
 
-      // Finde die Sammlung mit dem passenden Kategorienamen und füge das Video hinzu
+  returnVideo(item: any) {
+    const video: VideoData = {
+      video_id: item.id,
+      video_title: item.title,
+      video_description: item.description,
+      video_category: item.category,
+      video_img: `${environment.baseUrl}/media/thumbnails/${item.id}/thumbnail.jpeg`,
+      video_source: `${environment.baseUrl}/media/videos/${item.id}/master.m3u8`,
+      video_preview: `${environment.baseUrl}/media/previews/${item.id}/preview.mp4`
+    };
+
+    return video
+  }
+
+  sortThenReturnData(data: any[], categoryMapping: { [key: string]: string; }, collections: Collection[]) {
+    data.forEach(item => {
+      const video = this.returnVideo(item);
       const collection = collections.find(c => c.category === categoryMapping[item.category]);
       if (collection) {
         collection.videos.push(video);
-      } else {
-        console.log(`Kategorie nicht gefunden: ${item.category}`);
       }
     });
 
-    this.content = collections
+    return collections
+  }
+
+  transformResponse(data: any[]) {
+    const categoryMapping = this.returnCategoryMapping();
+    const collections = this.returnCollections();
+    const sortedCollections = this.sortThenReturnData(data, categoryMapping, collections);
+    this.content = sortedCollections;
   }
 }

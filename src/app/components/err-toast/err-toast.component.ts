@@ -12,12 +12,12 @@ export class ErrToastComponent {
   @Input() msg: string = '';
   @Input() is_err: boolean = true;
   @Input() hidden: boolean = true;
-  
+
   showErrToast = () => {
     this.hidden = false;
   }
 
-  hideErrToast(){
+  hideErrToast() {
     this.hidden = true;
   }
 }

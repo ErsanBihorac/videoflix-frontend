@@ -3,16 +3,15 @@
 
     <div class="collection__slide-view" #scrollContainer>
         <div class="collection__navigation--back">
-            <img *ngIf="scroll_btn_active" (click)="scroll('back')" src="img/chevron_left.svg" alt="left">
+            <img (click)="scroll('back')" src="img/chevron_left.svg" alt="left">
         </div>
         
         <div class="collection__navigation--next">
-            <img *ngIf="scroll_btn_active" (click)="scroll('next')" src="img/chevron_right.svg" alt="right">
+            <img (click)="scroll('next')" src="img/chevron_right.svg" alt="right">
         </div>
 
         @for (video of videos; track video.video_img) {
             <img (click)="selectVideo(video)" class="collection__slide-view--img" src="{{ video.video_img }}" alt="video">
         }
-        
     </div>
 </div>

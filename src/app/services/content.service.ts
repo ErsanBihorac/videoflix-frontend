@@ -17,7 +17,7 @@ export class ContentService {
     video_img: ``,
     video_source: ``,
     video_preview: ``
-}
+  }
 
   public receiveContent() {
     const token = localStorage.getItem('authToken');
@@ -25,7 +25,7 @@ export class ContentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return lastValueFrom(this.http.get(url, {headers: headers}));
+    return lastValueFrom(this.http.get(url, { headers: headers }));
   }
 
   returnHeaders() {

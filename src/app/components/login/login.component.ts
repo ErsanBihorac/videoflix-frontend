@@ -17,12 +17,9 @@ export class LoginComponent {
   ls = inject(LoginService);
   err_msg_active: boolean = false;
   err_msg: string = '';
-
   email: string = '';
   password: string = '';
-
   password_type: string = 'password';
-
   password_visibility: string = 'img/visibility.svg';
 
   constructor(private router: Router) { }
@@ -30,21 +27,14 @@ export class LoginComponent {
   async login() {
     await this.ls.loginWithEmailAndPassword(this.email, this.password)
       .then(resp => {
-        console.log('Login erfolgreich', resp)
-        console.log('access Token', resp.access)
         localStorage.setItem('authToken', resp.access)
-        // user success message before navigating
         this.router.navigate(['/']);
       })
       .catch(e => {
         if (e.error.detail) {
           this.activateAndSetErrMsg(e.error.detail);
-          console.log('error', e);
-        } else {
-          console.log('error', e);
         }
       });
-
   }
 
   submit() {
@@ -106,5 +96,4 @@ export class LoginComponent {
       this.password_visibility = 'img/visibility.svg';
     }
   }
-
 }

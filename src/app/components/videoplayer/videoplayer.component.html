@@ -28,7 +28,6 @@
                 <img class="lower-controls__icons--back" (click)="skipBackward()" src="/img/controls_back10s.svg" alt="back10s">
                 <img class="lower-controls__icons--forward" (click)="skipForward()" src="/img/controls_forward10s.svg" alt="forward10s">
 
-                <!-- Volume Icon with hover effect -->
                 <div class="volume-container d-none-after700px" (mouseenter)="showVolumeSlider()" (mouseleave)="hideVolumeSlider()">
                     <img (click)="mute()" src="/img/controls_volume.svg" alt="volume" *ngIf="!volume_mute">
                     <img (click)="unmute()" src="/img/controls_no_volume.svg" alt="no_volume" *ngIf="volume_mute">

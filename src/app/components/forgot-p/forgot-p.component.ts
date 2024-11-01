@@ -18,10 +18,8 @@ export class ForgotPComponent {
   ls = inject(LoginService);
   available: boolean = false;
   email: string = '';
-  
   err_msg_active: boolean = false;
   err_msg: string = 'false';
-
   err_toast_msg: string = '';
   err_toast_is_error: boolean = true;
   err_toast_hidden: boolean = true;
@@ -29,7 +27,6 @@ export class ForgotPComponent {
   setAndShowErrToast(msg: string, is_err: boolean) {
     this.err_toast_msg = msg;
     this.err_toast_is_error = is_err;
-
     this.err_toast_hidden = false;
   }
 
@@ -38,16 +35,10 @@ export class ForgotPComponent {
 
     await this.ls.requestResetEmail(this.email)
       .then(resp => {
-        console.log('email sent sucessfully', resp);
         this.setAndShowErrToast('We have sent you an email to reset your password', false);
       })
       .catch(e => {
-        if (e) {
-          this.activateAndSetErrMsg(e);
-          console.log('error', e);
-        } else {
-          console.log('error', e);
-        }
+        this.activateAndSetErrMsg(e);
       });
   }
 
@@ -76,7 +67,6 @@ export class ForgotPComponent {
       })
       .catch(e => {
         this.activateAndSetErrMsg(e);
-        console.log('error', e);
         return false;
       });
   }

@@ -1,3 +1,3 @@
 export interface EmailRegisteredResponse {
-    is_registered: boolean;
-  }
+  is_registered: boolean;
+}

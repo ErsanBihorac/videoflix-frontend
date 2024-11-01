@@ -10,10 +10,10 @@ import { LoginService } from '../../services/login.service';
   styleUrl: './email-input.component.scss'
 })
 export class EmailInputComponent {
-  ls = inject(LoginService);
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
   @Output() inputChange = new EventEmitter<string>();
+  ls = inject(LoginService);
   value: string = '';
 
   onInputChange(value: string) {

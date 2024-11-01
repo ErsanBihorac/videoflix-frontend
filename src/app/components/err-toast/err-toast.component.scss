@@ -58,9 +58,14 @@
 }
 
 @keyframes leftToRight {
-    0% {margin-left: -800px;}
-    100% {margin-left: 0px}
-  }
+    0% {
+        margin-left: -800px;
+    }
+
+    100% {
+        margin-left: 0px
+    }
+}
 
 .d-none {
     display: none;

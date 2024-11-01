@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VideoData } from '../../interfaces/video-data.model';
 import { ContentService } from '../../services/content.service';
@@ -13,12 +13,11 @@ import { ViewportScroller } from '@angular/common';
 })
 
 export class OfferVideoCollectionComponent {
-  cs = inject(ContentService);
   @Input() title: string = '';
   @Input() videos: VideoData[] = [];
   @Input() scrollAmount: number = 600;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
-  scroll_btn_active: boolean | null = true;
+  cs = inject(ContentService);
 
   constructor(private viewportScroller: ViewportScroller) { }
 

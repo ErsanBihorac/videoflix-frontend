@@ -20,59 +20,48 @@ export class ResetPComponent implements OnInit {
   available: boolean = false;
   err_msg_active: boolean = false;
   err_msg: string = '';
-
   password: string = '';
   confirm_password: string = '';
-
   password_type: string = 'password';
   confirm_password_type: string = 'password';
-
   password_visibility: string = 'img/visibility.svg';
   confirm_password_visibility: string = 'img/visibility.svg';
-
   uidb64: string | null = null;
   token: string | null = null;
-
   err_toast_msg: string = '';
   err_toast_is_error: boolean = true;
   err_toast_hidden: boolean = true;
 
   constructor(private route: ActivatedRoute, private router: Router) { }
-  
+
   ngOnInit(): void {
     this.uidb64 = this.route.snapshot.paramMap.get('uidb64');
     this.token = this.route.snapshot.paramMap.get('token');
-    
-    if (this.uidb64 == null || this.token == null){
+    if (this.uidb64 == null || this.token == null) {
       this.uidb64 = '';
-      this.token = ''
+      this.token = '';
     }
   }
-  
+
   setAndShowErrToast(msg: string, is_err: boolean) {
     this.err_toast_msg = msg;
     this.err_toast_is_error = is_err;
-
     this.err_toast_hidden = false;
   }
-  
+
   async reset_password() {
-      await this.ls.resetPassword(this.password, this.uidb64, this.token)
-        .then(resp => {
-          console.log('password reset successfully', resp);
-          this.setAndShowErrToast('password reset successfully', false);
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 2000);
-        })
-        .catch(e => {
-          if (e.error.detail) {
-            this.activateAndSetErrMsg(e.error.detail);
-            console.log('error', e);
-          } else {
-            console.log('error', e);
-          }
-        });
+    await this.ls.resetPassword(this.password, this.uidb64, this.token)
+      .then(resp => {
+        this.setAndShowErrToast('password reset successfully', false);
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+      })
+      .catch(e => {
+        if (e.error.detail) {
+          this.activateAndSetErrMsg(e.error.detail);
+        }
+      });
   }
 
   submit() {
@@ -123,11 +112,11 @@ export class ResetPComponent implements OnInit {
     this.checkPasswordSimilarity();
   }
 
-  checkPasswordSimilarity(){
-    if (this.password === this.confirm_password){
-      this.available = true
+  checkPasswordSimilarity() {
+    if (this.password === this.confirm_password) {
+      this.available = true;
     } else {
-      this.available = false
+      this.available = false;
     }
   }
 

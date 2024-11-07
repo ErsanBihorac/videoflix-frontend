@@ -35,7 +35,7 @@ export class LoginComponent {
       })
       .catch(e => {
         if (e.error.detail) {
-          this.activateAndSetErrMsg(e.error.detail);
+          this.activateAndSetErrMsg('Please check your entries and try again.');
         }
       });
   }

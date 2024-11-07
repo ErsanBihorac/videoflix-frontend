@@ -127,11 +127,9 @@ export class ForgotPComponent {
   async onEmailChange(value: string) {
     this.email = value;
     if (this.emailValidation()) {
-      if (await this.isEmailRegistered()) {
-        this.activateBtn()
-      }
+        this.activateBtn();
     } else {
-      this.deactivateBtn()
+      this.deactivateBtn();
     }
   }
 }

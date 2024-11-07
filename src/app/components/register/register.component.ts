@@ -11,13 +11,13 @@ import { ErrToastComponent } from "../err-toast/err-toast.component";
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ CommonModule, FormsModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink, ErrToastComponent],
+  imports: [CommonModule, FormsModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink, ErrToastComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   ls = inject(LoginService);
-  available: boolean = true;
+  available: boolean = false;
   err_msg_active: boolean = false;
   err_msg: string = '';
   email: string = '';
@@ -31,8 +31,8 @@ export class RegisterComponent {
   err_toast_is_error: boolean = true;
   err_toast_hidden: boolean = true;
 
-  constructor( private router: Router) { }
-  
+  constructor(private router: Router) { }
+
   /**
    * Function to display, set the error toast message and if should appear as an error or normal popup
    * @param msg -Error toast message
@@ -49,7 +49,7 @@ export class RegisterComponent {
    */
   async register() {
     this.deactivateBtn();
-      await this.ls.registerWithEmailAndPassword(this.email, this.password)
+    await this.ls.registerWithEmailAndPassword(this.email, this.password)
       .then(resp => {
         this.setAndShowErrToast('succesfully registered, please verify your account', false);
         setTimeout(() => {
@@ -58,7 +58,7 @@ export class RegisterComponent {
       })
       .catch(e => {
         if (e.error.email[0]) {
-          this.activateAndSetErrMsg(e.error.email[0]);
+          this.activateAndSetErrMsg('Please check your entries and try again.');
         }
       });
   }
@@ -118,7 +118,7 @@ export class RegisterComponent {
     } else {
       this.deactivateErrMsg();
       return true
-    };
+    }
   }
 
   /**
@@ -143,6 +143,7 @@ export class RegisterComponent {
    */
   onEmailChange(value: string) {
     this.email = value;
+    this.activateOnAllFieldsFilled();
   }
 
   /**
@@ -151,6 +152,7 @@ export class RegisterComponent {
    */
   onPasswordChange(value: string) {
     this.password = value;
+    this.activateOnAllFieldsFilled();
   }
 
   /**
@@ -159,6 +161,7 @@ export class RegisterComponent {
    */
   onConfirmPasswordChange(value: string) {
     this.confirm_password = value;
+    this.activateOnAllFieldsFilled();
   }
 
   /**
@@ -184,6 +187,17 @@ export class RegisterComponent {
     } else {
       this.confirm_password_type = 'password';
       this.confirm_password_visibility = 'img/visibility.svg';
+    }
+  }
+
+  /**
+   * Function to enable the button when all fields are filled out
+   */
+  activateOnAllFieldsFilled() {
+    if (this.email !== '' && this.password !== '' && this.confirm_password !== '') {
+      this.activateBtn();
+    } else {
+      this.deactivateBtn();
     }
   }
 

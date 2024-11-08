@@ -82,7 +82,7 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
       this.videoContainer.nativeElement.classList.remove('fullscreen');
     }
   }
- 
+
   /**
    * Function to handle the time line update
    * @param e
@@ -325,9 +325,23 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
+   * Function to save video progress
+   */
+  async saveProgress() {
+    const video = this.videoPlayer.nativeElement;
+    const videoId = this.cs.selectedVideo.video_id;
+    let lastPosition = video.currentTime;
+
+    await this.cs.saveVideoProgress(videoId, lastPosition)
+      .then((resp) => { })
+      .catch(e => { });
+  }
+
+  /**
    * Function to return to the previous page
    */
   returnToPreviousPage() {
+    this.saveProgress();
     if (document.fullscreenElement) {
       this.toggleFullscreen();
     }

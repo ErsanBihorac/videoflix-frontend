@@ -16,9 +16,10 @@ export class OfferVideoCollectionComponent {
   @Input() title: string = '';
   @Input() videos: VideoData[] = [];
   @Input() scrollAmount: number = 600;
+  @Input() collectionHidden: boolean= false;;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   cs = inject(ContentService);
-
+  
   constructor(private viewportScroller: ViewportScroller) { }
 
   /**

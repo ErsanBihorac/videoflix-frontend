@@ -19,6 +19,30 @@ export class ContentService {
     video_preview: ``
   }
 
+  getInProgressVideos() {
+    const token = localStorage.getItem('authToken');
+    const url = environment.baseUrl + '/api/content/video-progress/in_progress';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return lastValueFrom(this.http.get(url, { headers: headers }));
+  }
+
+  /**
+   * Function to save Video Progress
+   * @param videoId -Id of the video
+   * @param lastPosition -Number of the progress in seconds
+   * @returns 
+   */
+  saveVideoProgress(videoId: number, lastPosition: number) {
+    const token = localStorage.getItem('authToken');
+    const url = environment.baseUrl + `/api/content/video-progress/${videoId}/save_progress/`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return lastValueFrom(this.http.post(url, { last_position: lastPosition }, { headers: headers }));
+  }
+
   /**
    * 
    * @returns Function to receive the content used for the videos

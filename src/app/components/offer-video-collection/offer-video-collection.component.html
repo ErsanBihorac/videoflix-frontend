@@ -1,4 +1,4 @@
-<div class="collection">
+<div class="collection" *ngIf="!this.collectionHidden">
     <p class="collection__p">{{ title }}</p>
 
     <div class="collection__slide-view" #scrollContainer>

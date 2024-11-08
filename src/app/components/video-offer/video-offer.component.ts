@@ -25,13 +25,7 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.cs.receiveContent().then((resp: any) => {
-      this.transformResponse(resp);
-      this.selectRandomVideo();
-    }).catch(e => {
-      this.logout();
-    });
-
+    this.fillContent();
     this.setWindowWidth();
     this.handleResize = this.handleResize.bind(this);
     window.addEventListener('resize', this.handleResize);
@@ -52,9 +46,9 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
    * Function to select a random preview video
    */
   selectRandomVideo() {
-    let num_zero_to_three = Math.floor(Math.random() * 4)
-    let num_zero_to_six = Math.floor(Math.random() * 7)
-    this.cs.selectedVideo = this.content[num_zero_to_three].videos[num_zero_to_six];
+    let num_1_to_4 = Math.floor((Math.random() * 4) + 1)
+    let num_0_to_6 = Math.floor(Math.random() * 7)
+    this.cs.selectedVideo = this.content[num_1_to_4].videos[num_0_to_6];
   }
 
   /**
@@ -88,6 +82,7 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
    */
   returnCategoryMapping() {
     const categoryMapping: { [key: string]: string } = {
+      'started': 'Started Videos',
       'new': 'New on Videoflix',
       'documentary': 'Documentary',
       'drama': 'Drama',
@@ -111,12 +106,12 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
 
     return collections
   }
-  
-/**
- * Function that returns a video object in the correct format
- * @param item -Values to create video object
- * @returns -Video object
- */
+
+  /**
+   * Function that returns a video object in the correct format
+   * @param item -Values to create video object
+   * @returns -Video object
+   */
   returnVideo(item: any) {
     const video: VideoData = {
       video_id: item.id,
@@ -132,14 +127,14 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Function to sort the content in the correct format
-   * @param data -Values received from backend
+   * Function to sort all videos in the correct format
    * @param categoryMapping -Category map for the keys
-   * @param collections -Collection to put the data in the correct format
-   * @returns -Sorted collection with video objects and categories
+   * @param collections -Collection to put the videos in the correct format
    */
-  sortThenReturnData(data: any[], categoryMapping: { [key: string]: string; }, collections: Collection[]) {
-    data.forEach(item => {
+  async sortThenReturnData(categoryMapping: { [key: string]: string; }, collections: Collection[]) {
+    const content: any = await this.cs.receiveContent();
+
+    content.forEach((item: any) => {
       const video = this.returnVideo(item);
       const collection = collections.find(c => c.category === categoryMapping[item.category]);
       if (collection) {
@@ -147,17 +142,34 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
       }
     })
 
-    return collections
+    this.selectRandomVideo();
   }
 
   /**
-   * Function to transform the data
-   * @param data -Backend data
+   * Function to sort all videos that already were started to get watched in the correct format
+   * @param categoryMapping -Category map for the keys
+   * @param collections -Collection to put the videos in the correct format
    */
-  transformResponse(data: any[]) {
+  async sortStartedVideos(categoryMapping: { [key: string]: string; }, collections: Collection[]) {
+    const startedVideos: any = await this.cs.getInProgressVideos();
+
+    startedVideos.forEach((item: any) => {
+      const video = this.returnVideo(item.video);
+      const collection = collections.find(c => c.category === categoryMapping['started']);
+      if (collection) {
+        collection.videos.push(video);
+      }
+    })
+  }
+
+  /**
+   * Function to fill the Content object
+   */
+  fillContent() {
     const categoryMapping = this.returnCategoryMapping();
     const collections = this.returnCollections();
-    const sortedCollections = this.sortThenReturnData(data, categoryMapping, collections);
-    this.content = sortedCollections;
+    this.sortThenReturnData(categoryMapping, collections);
+    this.sortStartedVideos(categoryMapping, collections);
+    this.content = collections
   }
 }

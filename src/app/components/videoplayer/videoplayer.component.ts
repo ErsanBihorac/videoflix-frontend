@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Hls from 'hls.js';
 import { ContentService } from '../../services/content.service';
+import { ErrToastComponent } from '../err-toast/err-toast.component';
 @Component({
   selector: 'app-videoplayer',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ErrToastComponent],
   templateUrl: './videoplayer.component.html',
   styleUrls: ['./videoplayer.component.scss']
 })
@@ -33,7 +34,10 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
   isVolumeSliderVisible: boolean = false;
   isVolumeSliderHover: boolean = false;
   isOverlayVisible: boolean = true;
-
+  err_toast_msg: string = '';
+  err_toast_is_error: boolean = true;
+  err_toast_hidden: boolean = true;
+  last_position_timestamp: number = 0;
   constructor(private route: ActivatedRoute, private router: Router, private renderer: Renderer2) { }
 
   ngOnInit() {
@@ -52,6 +56,8 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mouseTimeout = setTimeout(() => {
       this.hideOverlay();
     }, 3000);
+
+    this.checkProgress();
   }
 
   ngOnDestroy() {
@@ -444,5 +450,59 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
         this.hls.currentLevel = selectedQuality.level;
       }
     }
+  }
+
+  /**
+   * Function to check if the video has been viewed to a certain point
+   */
+  async checkProgress() {
+    let startedVideos = await this.cs.getInProgressVideos();
+    const videosArray = Array.isArray(startedVideos) ? startedVideos : Object.values(startedVideos);
+
+    videosArray.forEach((item: any) => {
+      if (item.video.id === this.cs.selectedVideo.video_id) {
+        this.progressPopupMessage(item.video.title, item.last_position);
+      }
+    });
+  }
+
+  /**
+   * Function to set up the popup message to go to the last saved progress
+   * @param videoTitle -Video title for the popup message
+   * @param lastPosition -Number of the progress
+   */
+  progressPopupMessage(videoTitle: string, lastPosition: number) {
+    this.last_position_timestamp = lastPosition;
+    this.err_toast_msg = `Click on me for last watched position of ${videoTitle}`;
+    this.err_toast_is_error = false;
+    this.setAndShowErrToast(this.err_toast_msg, this.err_toast_is_error);
+  }
+
+  /**
+ * Function to display, set the error toast message and if should appear as an error or normal popup
+ * @param msg -Error toast message
+ * @param is_err -Sets the error toast to an error if true
+ */
+  setAndShowErrToast(msg: string, is_err: boolean) {
+    this.err_toast_msg = msg;
+    this.err_toast_is_error = is_err;
+    this.err_toast_hidden = false;
+
+    setTimeout(() => {
+      this.err_toast_hidden = true;
+    }, 5000)
+  }
+
+  /**
+   * Function to go to the last saved progress of the video
+   */
+  goToLastPosition() {
+    this.pauseVideo();
+    const video = this.videoPlayer.nativeElement;
+    const timeline = this.timelineContainer?.nativeElement;
+
+    const progress = this.last_position_timestamp / video.duration;
+    timeline.style.setProperty('--progress-position', progress.toString());
+    this.videoPlayer.nativeElement.currentTime = this.last_position_timestamp;
   }
 }

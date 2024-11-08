@@ -6,6 +6,12 @@ body {
     padding: 0;
 }
 
+.err-toast {
+    position: absolute;
+    bottom: 64px;
+}
+
+
 .logo-title-mobile-view {
     display: flex;
     justify-content: center;

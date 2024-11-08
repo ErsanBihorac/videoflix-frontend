@@ -132,7 +132,9 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
    * @param collections -Collection to put the videos in the correct format
    */
   async sortThenReturnData(categoryMapping: { [key: string]: string; }, collections: Collection[]) {
-    const content: any = await this.cs.receiveContent();
+    const content: any = await this.cs.receiveContent().catch(e => {
+      this.logout();
+    })
 
     content.forEach((item: any) => {
       const video = this.returnVideo(item);

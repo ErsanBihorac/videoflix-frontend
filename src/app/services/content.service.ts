@@ -19,6 +19,10 @@ export class ContentService {
     video_preview: ``
   }
 
+  /**
+   * Function to return a list of all videos that the user has started to watch
+   * @returns 
+   */
   getInProgressVideos() {
     const token = localStorage.getItem('authToken');
     const url = environment.baseUrl + '/api/content/video-progress/in_progress';

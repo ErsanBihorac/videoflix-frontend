@@ -257,6 +257,13 @@ body {
 }
 
 @media (max-width: 700px) {
+    .err-toast {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+
     .d-none-after700px {
         display: none;
     }

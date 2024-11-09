@@ -1,7 +1,7 @@
-    <div class="err-toast animation" [ngClass]="{'d-none': hidden}">
-        <div [ngClass]="{'d-none': !is_err}" class="err-toast__red-corner"></div>
-        <img class="err_toast__exclamation-mark" src="img/exclamation_mark_circle_fill.svg" alt="!">
-        <div class="err-toast__text">{{ msg }}</div>
-        <img class="err-toast__line" src="img/vector.svg" alt="|">
-        <img (click)="hideErrToast()" class="err-toast__close" src="img/close_small.svg" alt="x">
-    </div>
+<div class="err-toast animation" [ngClass]="{'d-none': hidden}">
+    <div [ngClass]="{'d-none': !is_err}" class="err-toast__red-corner"></div>
+    <img class="err_toast__exclamation-mark" src="img/exclamation_mark_circle_fill.svg" alt="!">
+    <div class="err-toast__text">{{ msg }}</div>
+    <img class="err-toast__line d-none-after700px" src="img/vector.svg" alt="|">
+    <img (click)="hideErrToast()" class="err-toast__close" src="img/close_small.svg" alt="x">
+</div>

@@ -463,7 +463,7 @@ export class VideoplayerComponent implements OnInit, OnDestroy, AfterViewInit {
       if (item.video.id === this.cs.selectedVideo.video_id) {
         this.progressPopupMessage(item.video.title, item.last_position);
       }
-    });
+    })
   }
 
   /**

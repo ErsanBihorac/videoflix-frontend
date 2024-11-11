@@ -11,7 +11,7 @@ import { ErrToastComponent } from "../err-toast/err-toast.component";
 @Component({
   selector: 'app-reset-p',
   standalone: true,
-  imports: [FormsModule, CommonModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink, ErrToastComponent],
+  imports: [FormsModule, CommonModule, LoginBtnComponent, PasswordInputComponent, RouterLink, ErrToastComponent],
   templateUrl: './reset-p.component.html',
   styleUrl: './reset-p.component.scss'
 })

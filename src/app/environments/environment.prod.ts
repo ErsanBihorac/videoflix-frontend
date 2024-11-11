@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    baseUrl: 'http://api.website'
+    baseUrl: 'https://ersan-bihorac.developerakademie.org'
 }

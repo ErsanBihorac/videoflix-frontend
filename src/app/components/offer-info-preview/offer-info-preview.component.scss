@@ -1,5 +1,8 @@
 @import './../../../styles.scss';
 
+.no-video {
+    height: 60vh !important;
+}
 .video {
     height: 700px;
     top: 0;

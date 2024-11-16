@@ -7,7 +7,7 @@ import { ViewportScroller } from '@angular/common';
 @Component({
   selector: 'app-offer-video-collection',
   standalone: true,
-  imports: [CommonModule, OfferVideoCollectionComponent],
+  imports: [CommonModule],
   templateUrl: './offer-video-collection.component.html',
   styleUrl: './offer-video-collection.component.scss'
 })

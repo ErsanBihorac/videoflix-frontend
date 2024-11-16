@@ -8,7 +8,9 @@ import { VideoData } from '../interfaces/video-data.model';
   providedIn: 'root'
 })
 export class ContentService {
+  baseUrl = 'https://ersan-bihorac.developerakademie.org';
   http = inject(HttpClient);
+  videos_uploaded: boolean = true;
   selectedVideo: VideoData = {
     video_id: 1,
     video_title: '',
@@ -25,7 +27,8 @@ export class ContentService {
    */
   getInProgressVideos() {
     const token = localStorage.getItem('authToken');
-    const url = environment.baseUrl + '/api/content/video-progress/in_progress';
+    const url = environment.baseUrl + '/api/content/video-progress/in_progress/';
+    // const url = this.baseUrl + '/api/content/video-progress/in_progress';
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -40,7 +43,8 @@ export class ContentService {
    */
   saveVideoProgress(videoId: number, lastPosition: number) {
     const token = localStorage.getItem('authToken');
-    const url = environment.baseUrl + `/api/content/video-progress/${videoId}/save_progress/`;
+    const url = environment.baseUrl + '/api/content/video-progress/${videoId}/save_progress/';
+    // const url = this.baseUrl + `/api/content/video-progress/${videoId}/save_progress/`;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -54,6 +58,7 @@ export class ContentService {
   public receiveContent() {
     const token = localStorage.getItem('authToken');
     const url = environment.baseUrl + '/api/content/videos/';
+    // const url = this.baseUrl + '/api/content/videos/';
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

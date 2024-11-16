@@ -9,6 +9,7 @@ import { EmailRegisteredResponse } from '../interfaces/email-registered-response
   providedIn: 'root'
 })
 export class LoginService {
+  baseUrl = 'https://ersan-bihorac.developerakademie.org';
   http = inject(HttpClient);
   email: string = '';
 
@@ -20,6 +21,7 @@ export class LoginService {
    */
   public loginWithEmailAndPassword(email: string, password: string) {
     const url = environment.baseUrl + '/api/login/';
+    // const url = this.baseUrl + '/api/login/';
     const headers = this.returnHeaders();
     const body = {
       "email": email,
@@ -37,6 +39,7 @@ export class LoginService {
    */
   public registerWithEmailAndPassword(email: string, password: string) {
     const url = environment.baseUrl + '/api/register/';
+    // const url = this.baseUrl + '/api/register/';
     const headers = this.returnHeaders();
     const body = {
       "email": email,
@@ -60,6 +63,8 @@ export class LoginService {
     }
 
     const url = environment.baseUrl + '/api/password-reset-complete/';
+    // const url = this.baseUrl + '/api/password-reset-complete/';
+
     const headers = this.returnHeaders();
     const body = {
       "password": password,
@@ -77,6 +82,7 @@ export class LoginService {
    */
   public requestResetEmail(email: string) {
     const url = environment.baseUrl + '/api/request-reset-email/';
+    // const url = this.baseUrl + '/api/request-reset-email/';
     const headers = this.returnHeaders();
     const body = {
       "email": email,
@@ -92,6 +98,7 @@ export class LoginService {
    */
   public isEmailRegistered(email: string) {
     const url = environment.baseUrl + '/api/check-registered-email/';
+    // const url = this.baseUrl + '/api/check-registered-email/';
     const headers = this.returnHeaders();
     const body = {
       "email": email,

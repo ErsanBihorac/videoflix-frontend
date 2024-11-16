@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { LoginBtnComponent } from "../login-btn/login-btn.component";
 import { EmailInputComponent } from "../email-input/email-input.component";
 import { PasswordInputComponent } from "../password-input/password-input.component";
 import { Router, RouterLink } from '@angular/router';
@@ -9,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, LoginBtnComponent, EmailInputComponent, PasswordInputComponent, RouterLink],
+  imports: [FormsModule, EmailInputComponent, PasswordInputComponent, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

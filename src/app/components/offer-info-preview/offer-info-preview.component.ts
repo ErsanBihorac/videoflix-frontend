@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
 import { ContentService } from '../../services/content.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-offer-info-preview',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './offer-info-preview.component.html',
   styleUrl: './offer-info-preview.component.scss'
 })

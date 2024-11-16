@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 })
 
 export class VideoOfferComponent implements OnInit, OnDestroy {
+  baseUrl = 'https://ersan-bihorac.developerakademie.org';
   cs = inject(ContentService);
   content: Collection[] = [];
   selectedVideo: number = 0;
@@ -45,10 +46,38 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
   /**
    * Function to select a random preview video
    */
-  selectRandomVideo() {
-    let num_1_to_4 = Math.floor((Math.random() * 4) + 1)
-    let num_0_to_6 = Math.floor(Math.random() * 7)
-    this.cs.selectedVideo = this.content[num_1_to_4].videos[num_0_to_6];
+  selectRandomVideoNewOnVideoflix() {
+    let randomVideoNewOnVideoflix = Math.floor(Math.random() * this.content[1].videos.length);
+
+    if (this.content[1].videos[randomVideoNewOnVideoflix]) {
+      this.cs.selectedVideo = this.content[1].videos[randomVideoNewOnVideoflix];
+    } else {
+      this.selectFirstAvailableVideo();
+    }
+  }
+
+  /**
+   * Function to select the first video available
+   */
+  selectFirstAvailableVideo() {
+    for (let i = 0; i < this.content.length; i++) {
+      for (let j = 0; j < this.content[i].videos.length; j++) {
+        if (this.content[i].videos[j]) {
+          this.cs.selectedVideo = this.content[i].videos[j];
+          return
+        }
+      }
+    }
+
+    this.setNoVideos()
+  }
+
+  /**
+   * Function to display the message that there are no uploaded videos
+   */
+  setNoVideos(){
+    this.cs.selectedVideo.video_description = 'There are currently no Videos uploaded!'
+    this.cs.videos_uploaded = false;
   }
 
   /**
@@ -87,7 +116,7 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
       'documentary': 'Documentary',
       'drama': 'Drama',
       'romance': 'Romance'
-    };
+    }
 
     return categoryMapping
   }
@@ -121,6 +150,9 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
       video_img: `${environment.baseUrl}/media/thumbnails/${item.id}/thumbnail.jpeg`,
       video_source: `${environment.baseUrl}/media/videos/${item.id}/master.m3u8`,
       video_preview: `${environment.baseUrl}/media/previews/${item.id}/preview.mp4`
+      // video_img: `${this.baseUrl}/media/thumbnails/${item.id}/thumbnail.jpeg`,
+      // video_source: `${this.baseUrl}/media/videos/${item.id}/master.m3u8`,
+      // video_preview: `${this.baseUrl}/media/previews/${item.id}/preview.mp4`
     }
 
     return video
@@ -144,7 +176,7 @@ export class VideoOfferComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.selectRandomVideo();
+    this.selectRandomVideoNewOnVideoflix();
   }
 
   /**
